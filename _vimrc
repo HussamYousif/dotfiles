@@ -3,7 +3,6 @@ set runtimepath=$HOME/vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles
 call plug#begin('$HOME/vim/bundle')
 Plug 'flazz/vim-colorschemes'
 Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'tpope/vim-fugitive'
 Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
 Plug 'kien/ctrlp.vim'
@@ -24,13 +23,15 @@ Plug 'majutsushi/tagbar'
 Plug 'mbbill/undotree'
 Plug 'mxw/vim-jsx'
 Plug 'easymotion/vim-easymotion'
-Plug 'junegunn/gv.vim'
 Plug 'kien/rainbow_parentheses.vim'
-Plug 'jceb/vim-orgmode'
-Plug 'tpope/vim-speeddating'
-Plug 'trevordmiller/nova-vim'
-
+Plug 'jaxbot/semantic-highlight.vim'
 Plug 'ryanoasis/vim-devicons'
+Plug 'RRethy/vim-illuminate'
+Plug 'terryma/vim-smooth-scroll'
+
+" Git
+Plug 'airblade/vim-gitgutter'
+Plug 'jreybert/vimagit'
 
 " NIM
 Plug 'zah/nim.vim'
@@ -41,8 +42,6 @@ Plug 'tpope/vim-jdaddy'
 " CSharp
 Plug 'omnisharp/omnisharp-vim'
 
-" Python
-
 " Organisation
 Plug 'dhruvasagar/vim-dotoo'
 
@@ -51,10 +50,6 @@ Plug 'dhruvasagar/vim-dotoo'
 Plug 'SirVer/ultisnips'
 Plug 'ervandew/supertab'
 Plug 'honza/vim-snippets'
-Plug 'davidhalter/jedi-vim'
-Plug 'Shougo/deoplete.nvim'
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-Plug 'zchee/deoplete-jedi'
 Plug 'roxma/nvim-yarp'
 
 " Js
@@ -87,15 +82,19 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'connorholyday/vim-snazzy'
 Plug 'sts10/vim-pink-moon'
 Plug 'tomasr/molokai'
-
+Plug  'dracula/vim'
+Plug 'vim-scripts/moria'
+Plug 'trevordmiller/nova-vim'
 
 Plug 'roxma/vim-hug-neovim-rpc'
 
 call plug#end()
 
 
+
 set encoding=utf8
-set guifont=DroidSansMono\ NF\:h11
+"set guifont=DroidSansMono\ NF\:h11
+set guifont=Consolas\:h11
 
 
 
@@ -103,7 +102,9 @@ set number relativenumber
 " Automatically reload file guten for git.
 set autoread
 
-
+" I'm lazy and want case insensitive search.
+" Also works better for CTRLP
+set ignorecase
 
 
 "" Git
@@ -137,13 +138,13 @@ noremap <leader>w :bn<CR>
 filetype plugin on
 filetype plugin indent on
 
-
+set omnifunc=syntaxcomplete#Complete
 
 
 " ***** Basics
 "
 "" Color
-colorscheme palenight
+colorscheme papercolor
 
 syntax on
 
@@ -156,6 +157,8 @@ set tabstop=4
 set softtabstop=0
 set shiftwidth=4
 set expandtab
+
+autocmd Filetype javascript setlocal ts=2 sw=2 sts=0 expandtab
 
 "" Map leader to ,
 let mapleader=','
@@ -176,6 +179,8 @@ set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar
 
+set termguicolors
+
 " disable folding
 set nofoldenable
 
@@ -195,8 +200,6 @@ nnoremap <C-H> <C-W><C-H>
 
 
 " Grep
-noremap <C-O> :Grepper<CR>
-
 
 nnoremap <F8> :vert terminal<CR>
 
@@ -269,8 +272,6 @@ if !exists('g:airline_powerline_fonts')
 else
 endif
 
-
-
 "" NERDTree configuration
 let g:NERDTreeChDirMode=2
 let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
@@ -287,7 +288,7 @@ noremap <F3> :NERDTreeToggle<CR>
 "" ctrlp.vim
 set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|tox|ico|git|hg|svn))$'
+let g:ctrlp_custom_ignore = '\v[\/](venv|node_modules|target|dist)|(\.(swp|tox|ico|git|hg|svn))$'
 let g:ctrlp_user_command = "find %s -type f | grep -Ev '"+ g:ctrlp_custom_ignore +"'"
 let g:ctrlp_use_caching = 1
 
@@ -310,79 +311,24 @@ let g:airline_skip_empty_sections = 1
 let g:airline#extensions#virtualenv#enabled = 1
 
 " Use deoplete.
-let g:deoplete#enable_at_startup = 1
 let g:python3_host_prog= 'C:\Users\Lokal Bruker\AppData\Local\Programs\Python\Python37\python.exe'
+
+" parenthesis completion?=
+
 
 
 " JEDI Conf
-let g:jedi#use_tabs_not_buffers = 0  " use buffers instead of tabs
-let g:jedi#show_call_signatures = "1"
-let g:jedi#goto_command = "<localleader>tt"
-let g:jedi#goto_assignments_command = "<localleader>ta"
-let g:jedi#goto_definitions_command = "<localleader>tg"
-let g:jedi#documentation_command = "<leader>k"
-let g:jedi#usages_command = "<localleader>u"
-let g:jedi#rename_command = "<leader>r"
-let g:jedi#use_splits_not_buffers = "left"
-let g:jedi#popup_on_dot = 0
-let g:jedi#popup_select_first = 0
-let g:jedi#show_call_signatures = "0"
-
-" Tern Conf
-let g:tern_map_keys = 1
-" Whether to include the types of the completions in the result data. Default: 0
-let g:deoplete#sources#ternjs#types = 1
-
-" Whether to include the distance (in scopes for variables, in prototypes for
-" properties) between the completions and the origin position in the result
-" data. Default: 0
-let g:deoplete#sources#ternjs#depths = 1
-
-" Whether to include documentation strings (if found) in the result data.
-" Default: 0
-let g:deoplete#sources#ternjs#docs = 1
-
-" When on, only completions that match the current word at the given point will
-" be returned. Turn this off to get all results, so that you can filter on the
-" client side. Default: 1
-let g:deoplete#sources#ternjs#filter = 0
-
-" Whether to use a case-insensitive compare between the current word and
-" potential completions. Default 0
-let g:deoplete#sources#ternjs#case_insensitive = 1
-
-" When completing a property and no completions are found, Tern will use some
-" heuristics to try and return some properties anyway. Set this to 0 to
-" turn that off. Default: 1
-let g:deoplete#sources#ternjs#guess = 0
-
-" Determines whether the result set will be sorted. Default: 1
-let g:deoplete#sources#ternjs#sort = 0
-
-" When disabled, only the text before the given position is considered part of
-" the word. When enabled (the default), the whole variable name that the cursor
-" is on will be included. Default: 1
-let g:deoplete#sources#ternjs#expand_word_forward = 0
-
-" Whether to ignore the properties of Object.prototype unless they have been
-" spelled out by at least two characters. Default: 1
-let g:deoplete#sources#ternjs#omit_object_prototype = 0
-
-" Whether to include JavaScript keywords when completing something that is not
-" a property. Default: 0
-let g:deoplete#sources#ternjs#include_keywords = 1
-
-" If completions should be returned when inside a literal. Default: 1
-let g:deoplete#sources#ternjs#in_literal = 0
-
-
-"Add extra filetypes
-let g:deoplete#sources#ternjs#filetypes = [
-                \ 'jsx',
-                \ 'javascript.jsx',
-                \ 'vue',
-                \ '...'
-                \ ]
+"let g:jedi#use_tabs_not_buffers = 0  " use buffers instead of tabs
+"let g:jedi#goto_command = "<localleader>tt"
+"let g:jedi#goto_assignments_command = "<localleader>ta"
+"let g:jedi#goto_definitions_command = "<localleader>tg"
+"let g:jedi#documentation_command = "<leader>k"
+"let g:jedi#usages_command = "<localleader>u"
+"let g:jedi#rename_command = "<leader>r"
+"let g:jedi#use_splits_not_buffers = "right"
+"let g:jedi#popup_on_dot = 0
+"let g:jedi#popup_select_first = 0
+"let g:jedi#show_call_signatures = "0"
 
 " ctrl+p
 let g:ctrlp_clear_cache_on_exit = 0
@@ -422,7 +368,11 @@ nnoremap <F5> :UndotreeToggle<cr>
 let g:OmniSharp_server_path = 'C:\omnisharp-roslyn\bin\obj\OmniSharp.Http.Driver\Debug\net461\OmniSharp.exe'
 
 let g:OmniSharp_selector_ui = 'ctrlp'  " Use ctrlp.vim
+
 "ALE
+let g:ale_set_highlights = 0  " Dont underline errors/warnings
+let g:ale_completion_enabled = 1
+
 " Equivalent to the above.
 let b:ale_linters = {'python3': ['flake8']}
 let b:ale_linters = {'python': ['flake8']}
@@ -431,12 +381,12 @@ let g:ale_linters = {
 \}
 
 
-" Hasxkell
-let g:ale_linters = {
-    \   'haskell': ['stack-ghc', 'ghc-mod', 'hlint', 'hdevtools', 'hfmt'],
-    \}
+" Enable at some point in the future
+"let g:ale_linters = {'python': ['pyls']}
 
+" Uncomment to disable ale on js.
 autocmd BufEnter *.js ALEDisable
+autocmd BufEnter *.elm ALEDisable
 
 " Bind F8 to fixing problems with ALE
 nmap <F8> <Plug>(ale_fix)
@@ -447,15 +397,15 @@ let g:ale_sign_warning = '--'
 highlight ALEErrorSign guifg=#FF0000
 highlight ALEWarningSign guifg=#F2C38F
 
-let g:ale_linters = {'python': ['pyls']}
-" Set this in your vimrc file to disabling highlighting
-let g:ale_set_highlights = 0
+nmap  <C-a> <Plug>(ale_previous_wrap)
+nmap <silent> <C-s> <Plug>(ale_next_wrap)
+nmap <leader>d <Plug>(ale_go_to_definition)
+nmap <leader>r <Plug>(ale_find_reference)
+nmap <leader>h <Plug>(ale_hover)
 
 " Set this. Airline will handle the rest.
 let g:airline#extensions#ale#enabled = 1
 
-nmap <silent> <C-a> <Plug>(ale_previous_wrap)
-nmap <silent> <C-s> <Plug>(ale_next_wrap)
 
 
 " Rainbow param
@@ -480,12 +430,9 @@ let g:rbpt_colorpairs = [
 
 let g:rbpt_max = 16
 
-
 " close the preview window when you're not using it
 let g:SuperTabClosePreviewOnPopupClose = 1
 
-
-autocmd Filetype javascript setlocal ts=2 sw=2 sts=0 expandtab
 
 " ctrlp
 let g:ctrlp_max_files=0
@@ -500,5 +447,13 @@ let g:FerretHlsearch=1
 let g:FerretAutojump=1
 
 
-
-
+" Elm
+let g:elm_jump_to_error = 0
+let g:elm_make_output_file = "elm.js"
+let g:elm_make_show_warnings = 0
+let g:elm_syntastic_show_warnings = 0
+let g:elm_browser_command = ""
+let g:elm_detailed_complete = 0
+let g:elm_format_autosave = 1
+let g:elm_format_fail_silently = 0
+let g:elm_setup_keybindings = 1
