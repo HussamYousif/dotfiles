@@ -10,7 +10,6 @@ Plug 'ap/vim-css-color'
 Plug 'raichoo/haskell-vim'
 
 
-
 " Utils
 Plug 'mhinz/vim-startify'
 Plug 'airblade/vim-rooter'
@@ -36,14 +35,12 @@ Plug 'majutsushi/tagbar'
 
 " Docker
 Plug 'ekalinin/dockerfile.vim'
-Plug 'kevinhui/vim-docker-tools'
 
 " LSP
 Plug 'w0rp/ale'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
+
+" Autocomplete
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Grep and fuzzyfind
 Plug 'junegunn/fzf'
@@ -69,16 +66,16 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'connorholyday/vim-snazzy'
 Plug 'sts10/vim-pink-moon'
 Plug 'tomasr/molokai'
-Plug  'dracula/vim'
+Plug 'dracula/vim'
 Plug 'vim-scripts/moria'
 Plug 'trevordmiller/nova-vim'
 Plug 'joshdick/onedark.vim'
 Plug 'NLKNguyen/papercolor-theme'
 
-
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'zivyangll/git-blame.vim'
+
 
 " Initialize plugin system
 call plug#end()
@@ -87,6 +84,7 @@ call plug#end()
 setglobal complete-=i
 
 
+set hidden
 set encoding=utf8
 
 set tabstop=2
@@ -165,6 +163,18 @@ set nohlsearch
 "" Directories for swp files
 set nobackup
 set noswapfile
+
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
 
 " GUI
 set guioptions-=m  "remove menu bar
@@ -372,7 +382,7 @@ nnoremap <Leader>q :DockerToolsToggle<cr>
 nnoremap <Leader>a :Grepper<cr>
 
 "*****************************************************************************
-"" LANGUAGE SERVER PROTOCOLS 
+"" LANGUAGE SERVER PROTOCOLS
 "*****************************************************************************
 " ALE
 let g:ale_set_highlights = 0  " Dont underline errors/warnings
@@ -397,13 +407,36 @@ nnoremap <Leader>c :JsDoc<cr>
 autocmd BufWritePost *.js ALEFix " Runs linting on save on JS files.
 
 let g:LanguageClient_serverCommands = {
-    \ 'javascript': ['javascript-typescript-stdio']
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['javascript-typescript-stdio']
     \ }
 
 nnoremap <leader>l :call LanguageClient_contextMenu()<CR>
 nnoremap K :call LanguageClient#textDocument_hover()<CR>
 nnoremap gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <leader>r :call LanguageClient#textDocument_rename()<CR>
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
 
 
 "*****************************************************************************
