@@ -404,7 +404,6 @@ nnoremap <Leader>d :ALEFix<cr>
 nnoremap <Leader>c :JsDoc<cr>
 
 
-autocmd BufWritePost *.js ALEFix " Runs linting on save on JS files.
 
 let g:LanguageClient_serverCommands = {
     \ 'javascript': ['javascript-typescript-stdio'],
@@ -437,6 +436,8 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
+
+nmap <leader>p  <Plug>(coc-codeaction-selected)
 
 
 "*****************************************************************************
