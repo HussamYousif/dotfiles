@@ -3,11 +3,17 @@ call plug#begin('~/.vim/plugged')
 
 " Syntax
 Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'mxw/vim-jsx'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'pangloss/vim-javascript'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'ap/vim-css-color'
-Plug 'raichoo/haskell-vim'
+Plug 'vim-scripts/svg.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'travitch/hasksyn'
+Plug 'alx741/vim-hindent'
+Plug 'OmniSharp/omnisharp-vim'
+
 
 
 " Utils
@@ -19,22 +25,28 @@ Plug 'raimondi/delimitmate'
 Plug 'yggdroot/indentline'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'jeetsukumaran/vim-buffergator'
 Plug 'breuckelen/vim-resize'
 Plug 'RRethy/vim-illuminate'
 Plug 'luochen1990/rainbow'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'kshenoy/vim-signature'
 Plug 'tyru/restart.vim'
+" Notes
+Plug 'xolox/vim-notes'
+Plug 'xolox/vim-misc'
 
 " Awesome plugins
 Plug 'tpope/vim-surround'
 Plug 'junegunn/vim-easy-align'
 Plug 'majutsushi/tagbar'
+Plug 'hushicai/tagbar-javascript.vim'
+
 
 
 " Docker
 Plug 'ekalinin/dockerfile.vim'
+Plug 'kevinhui/vim-docker-tools'
+
 
 " LSP
 Plug 'w0rp/ale'
@@ -43,12 +55,12 @@ Plug 'w0rp/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Grep and fuzzyfind
-Plug 'junegunn/fzf'
-Plug 'mhinz/vim-grepper'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-rooter'
 
-" Snippets
-Plug 'sirver/ultisnips'
-Plug 'honza/vim-snippets'
+
+Plug 'mhinz/vim-grepper'
 
 " Javascript
 Plug 'heavenshell/vim-jsdoc'
@@ -73,9 +85,16 @@ Plug 'joshdick/onedark.vim'
 Plug 'NLKNguyen/papercolor-theme'
 
 " Git
+Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
-Plug 'zivyangll/git-blame.vim'
+Plug 'tpope/vim-rhubarb'
+Plug 'junegunn/gv.vim'
+Plug 'idanarye/vim-merginal'
 
+
+" GUI
+Plug 'unblevable/quick-scope'
+Plug 'ryanoasis/vim-devicons'
 
 " Initialize plugin system
 call plug#end()
@@ -117,6 +136,30 @@ noremap <Leader>gd :Gvdiff<CR>
 noremap <Leader>gr :Gremove<CR>
 
 
+" Change these if you want
+let g:signify_sign_add               = '+'
+let g:signify_sign_delete            = '_'
+let g:signify_sign_delete_first_line = '‾'
+let g:signify_sign_change            = '~'
+
+" I find the numbers disctracting
+let g:signify_sign_show_count = 0
+let g:signify_sign_show_text = 1
+
+
+" Jump though hunks
+nmap <leader>gj <plug>(signify-next-hunk)
+nmap <leader>gk <plug>(signify-prev-hunk)
+nmap <leader>gJ 9999<leader>gJ
+nmap <leader>gK 9999<leader>gk
+
+
+" If you like colors instead
+highlight SignifySignAdd                  ctermbg=green                guibg=#00ff00
+highlight SignifySignDelete ctermfg=black ctermbg=red    guifg=#ffffff guibg=#ff0000
+highlight SignifySignChange ctermfg=black ctermbg=yellow guifg=#000000 guibg=#ffff00
+
+
 "" Tabs
 nnoremap <Tab> gt
 nnoremap <S-Tab> gT
@@ -141,10 +184,14 @@ filetype plugin indent on
 " ***** Basics
 "
 "" Color
-colorscheme molokai
+colorscheme palenight
 syntax on
 
-set guifont=Monaco:h14
+set macligatures
+set guifont=Hack\ Nerd\ Font:h14
+
+
+
 
 "" Fix backspace indent
 set backspace=indent,eol,start
@@ -360,26 +407,51 @@ let g:rbpt_max = 16
 " close the preview window when you're not using it
 let g:SuperTabClosePreviewOnPopupClose = 1
 
-
-
-" fzf
-let g:fzf_nvim_statusline = 0 " disable statusline overwriting
+" This is the default extra key bindings
 let g:fzf_action = {
-      \ 'ctrl-s': 'split',
-      \ 'ctrl-v': 'vsplit'
-      \ }
-nnoremap <c-p> :FZF -i<cr>
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
 
-augroup fzf
-    autocmd!
-    autocmd! FileType fzf
-    autocmd  FileType fzf set laststatus=0 noshowmode noruler
-        \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-augroup END
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-" Shortcuts for utils.
-nnoremap <Leader>q :DockerToolsToggle<cr>
-nnoremap <Leader>a :Grepper<cr>
+map <C-p> :Files<CR>
+map <leader>b :Buffers<CR>
+nnoremap <leader>a :Rg<CR>
+nnoremap <leader>t :Tags<CR>
+nnoremap <leader>m :Marks<CR>
+
+
+let g:fzf_tags_command = 'ctags -R'
+" Border color
+"let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
+
+let $FZF_DEFAULT_OPTS = '--layout=reverse'
+let $FZF_DEFAULT_COMMAND="rg --files --hidden"
+
+
+" Ripgrep advanced
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+" Git grep
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+
+
 
 "*****************************************************************************
 "" LANGUAGE SERVER PROTOCOLS
@@ -403,30 +475,19 @@ let g:ale_fixers = {
 nnoremap <Leader>d :ALEFix<cr>
 nnoremap <Leader>c :JsDoc<cr>
 
+" Give more space for displaying messages.
+set cmdheight=2
 
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
 
-let g:LanguageClient_serverCommands = {
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['javascript-typescript-stdio']
-    \ }
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
 
-nnoremap <leader>l :call LanguageClient_contextMenu()<CR>
-nnoremap K :call LanguageClient#textDocument_hover()<CR>
-nnoremap gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <leader>r :call LanguageClient#textDocument_rename()<CR>
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -436,8 +497,35 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
-
 nmap <leader>p  <Plug>(coc-codeaction-selected)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+
+"*****************************************************************************
+"" Haskell particular
+"*****************************************************************************
+autocmd BufNewFile,BufRead *.hs set hindent_on_save = 1
+autocmd BufNewFile,BufRead *.hs set hindent_indent_size = 2
+autocmd BufNewFile,BufRead *.hs set hindent_line_length = 100
+autocmd BufNewFile,BufRead *.hs set hindent_command = "stack exec -- hindent"
+
+
 
 
 "*****************************************************************************
@@ -460,5 +548,8 @@ inoremap <C-ScrollWheelDown> <Esc>:call AdjustFontSize(-1)<CR>a
 " In insert mode, pressing ctrl + numpad's+ increases the font
 inoremap <C-kPlus> <Esc>:call AdjustFontSize(1)<CR>a
 inoremap <C-kMinus> <Esc>:call AdjustFontSize(-1)<CR>a
+
+
+
 
 
