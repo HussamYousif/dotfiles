@@ -1,86 +1,122 @@
+call plug#begin('~/Appdata/Local/nvim/plugged')
+" Colorschemes
+Plug 'drewtempelmeyer/palenight.vim'
+Plug 'sonph/onehalf'
+Plug 'morhetz/gruvbox'
+Plug 'altercation/vim-colors-solarized'
+Plug 'arcticicestudio/nord-vim'
+Plug 'trevordmiller/nova-vim'
+Plug 'jacoborus/tender.vim'
+Plug 'connorholyday/vim-snazzy'
+Plug 'sts10/vim-pink-moon'
+Plug 'tomasr/molokai'
+Plug 'dracula/vim'
+Plug 'vim-scripts/moria'
+Plug 'joshdick/onedark.vim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'jnurmine/Zenburn'
+Plug 'gosukiwi/vim-atom-dark'
+Plug 'rakr/vim-one'
+Plug 'ciaranm/inkpot'
+Plug 'kyoz/purify'
+Plug 'vimcolorschemes/vimcolorschemes'
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+Plug 'ghifarit53/tokyonight-vim'
+Plug 'artanikin/vim-synthwave84'
+Plug 'romgrk/doom-one.vim'
+Plug 'onsails/lspkind-nvim'
 
-call plug#begin()
-Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'mhinz/vim-startify'
+" LSP
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'w0rp/ale'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" .net
+Plug 'omnisharp/omnisharp-vim'
+
+
+
+" Utils and GUI
+Plug 'ap/vim-css-color'
 Plug 'airblade/vim-rooter'
-Plug 'scrooloose/nerdtree'
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'scrooloose/nerdtree'
 Plug 'raimondi/delimitmate'
 Plug 'yggdroot/indentline'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-surround'
+Plug 'mhinz/vim-startify'
+Plug 'habamax/vim-sendtoterm'
+Plug 'xolox/vim-notes'
+Plug 'xolox/vim-misc'
+Plug 'frazrepo/vim-rainbow'
+Plug 'ryanoasis/vim-devicons'
+Plug 'akinsho/nvim-bufferline.lua'
+
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'breuckelen/vim-resize'
-Plug 'majutsushi/tagbar'
-Plug 'mxw/vim-jsx'
 Plug 'RRethy/vim-illuminate'
-Plug 'luochen1990/rainbow'
+
 Plug 'terryma/vim-smooth-scroll'
+Plug 'tyru/restart.vim'
+" Fuzzy find
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
-Plug 'honza/vim-snippets'
-Plug 'sirver/ultisnips'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
+" Awesome plugins
+Plug 'tpope/vim-surround'
+Plug 'majutsushi/tagbar'
 
+" Autocompletion and LSP
 
+" Snippets
+Plug 'shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 
-" Docker
-Plug 'ekalinin/dockerfile.vim'
-Plug 'kevinhui/vim-docker-tools'
+" Git
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'junegunn/gv.vim'
+Plug 'cedarbaum/fugitive-azure-devops.vim'
 
-" lsp
-Plug 'w0rp/ale'
-
-" Grep and fuzzyfind
-Plug 'junegunn/fzf'
-Plug 'mhinz/vim-grepper'
-
-" JSON
-Plug 'tpope/vim-jdaddy'
-
-" Js
-Plug 'pangloss/vim-javascript'
-
-" CSS
-Plug 'hail2u/vim-css3-syntax'
-Plug 'ap/vim-css-color'
-
-
-" Colors
-Plug 'jacoborus/tender.vim'
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'arcticicestudio/nord-vim'
-Plug 'connorholyday/vim-snazzy'
-Plug 'sts10/vim-pink-moon'
-Plug 'tomasr/molokai'
-Plug  'dracula/vim'
-Plug 'vim-scripts/moria'
-Plug 'trevordmiller/nova-vim'
-Plug 'joshdick/onedark.vim'
-Plug 'NLKNguyen/papercolor-theme'
-
-" Utility
+"Nvim 5
+" TODO Treesitter, telescope and stuff
+" Plug 'nvim-treesitter/nvim-treesitter'
 
 call plug#end()
 
-
-" Remove global autocomplete from buffer
-setglobal complete-=i
+filetype indent plugin on
 
 
+
+set hidden
 set encoding=utf8
-set guifont=DejaVu\ Sans\ Mono:14
 
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+
+" Set the filetype spaces here.
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType php setlocal ts=2 sts=2 sw=2
 
 
 set number relativenumber
+
+" Disable all sounds
+set belloff=all
 
 " Automatically reload file guten for git.
 set autoread
 
 " I'm lazy and want case insensitive search.
 set ignorecase
-
 
 "" Git
 noremap <Leader>ga :Gwrite<CR>
@@ -92,16 +128,15 @@ noremap <Leader>gb :Gblame<CR>
 noremap <Leader>gd :Gvdiff<CR>
 noremap <Leader>gr :Gremove<CR>
 
+nnoremap <leader>gt :GV<CR>
+
 
 "" Tabs
 nnoremap <Tab> gt
 nnoremap <S-Tab> gT
 nnoremap <silent> <S-t> :tabnew<CR>
 
-"" Copy/Paste/Cut
-if has('unnamedplus')
-  set clipboard=unnamed,unnamedplus
-endif
+set clipboard=unnamed
 
 "" Buffer nav
 noremap <leader>z :bp<CR>
@@ -117,27 +152,14 @@ filetype plugin indent on
 " ***** Basics
 "
 "" Color
-colorscheme onedark
-
+colorscheme gruvbox
+set background=dark
 syntax on
-
-
-
 
 "" Fix backspace indent
 set backspace=indent,eol,start
 
-"" Tabs. May be overriten by autocmd rules
-set tabstop=4
-set softtabstop=0
-set shiftwidth=4
-set expandtab
 
-autocmd Filetype javascript setlocal ts=2 sw=2 sts=0 expandtab
-
-" add yaml stuffs
-au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 "" Map leader to ,
 let mapleader=','
@@ -152,11 +174,24 @@ set nohlsearch
 set nobackup
 set noswapfile
 
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
 " GUI
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar
+set guioptions+=a  "Clipboard is now windows default
 
 
 " disable folding
@@ -229,34 +264,23 @@ let g:airline_powerline_fonts = 1
 if !exists('g:airline_powerline_fonts')
   let g:airline#extensions#tabline#left_sep = ' '
   let g:airline#extensions#tabline#left_alt_sep = '|'
-  let g:airline_left_sep          = '▶'
+  let g:airline_left_sep          = '?'
   let g:airline_left_alt_sep      = '»'
-  let g:airline_right_sep         = '◀'
+  let g:airline_right_sep         = '?'
   let g:airline_right_alt_sep     = '«'
-  let g:airline#extensions#branch#prefix     = '⤴' "➔, ➥, ⎇
-  let g:airline#extensions#readonly#symbol   = '⊘'
+  let g:airline#extensions#branch#prefix     = '?' "?, ?, ?
+  let g:airline#extensions#readonly#symbol   = '?'
   let g:airline#extensions#linecolumn#prefix = '¶'
-  let g:airline#extensions#paste#symbol      = 'ρ'
-  let g:airline_symbols.linenr    = '␊'
-  let g:airline_symbols.branch    = '⎇'
-  let g:airline_symbols.paste     = 'ρ'
+  let g:airline#extensions#paste#symbol      = '?'
+  let g:airline_symbols.linenr    = '?'
+  let g:airline_symbols.branch    = '?'
+  let g:airline_symbols.paste     = '?'
   let g:airline_symbols.paste     = 'Þ'
-  let g:airline_symbols.paste     = '∥'
-  let g:airline_symbols.whitespace = 'Ξ'
+  let g:airline_symbols.paste     = '?'
+  let g:airline_symbols.whitespace = '?'
 else
 endif
 
-"" NERDTree configuration
-let g:NERDTreeChDirMode=2
-let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
-let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-let g:NERDTreeShowBookmarks=1
-let g:nerdtree_tabs_focus_on_files=1
-let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeWinSize = 50
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-nnoremap <silent> <F2> :NERDTreeFind<CR>
-noremap <F3> :NERDTreeToggle<CR>
 
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
@@ -282,20 +306,8 @@ let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not
 let g:NERDToggleCheckAllLines = 1
 
-
-"" ctrlp.vim
-"set wildmode=list:longest,list:full
-"set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-"let g:ctrlp_custom_ignore = '\v[\/](venv|node_modules|target|dist)|(\.(swp|tox|ico|git|hg|svn))$'
-"let g:ctrlp_user_command = "find %s -type f | grep -Ev '"+ g:ctrlp_custom_ignore +"'"
-"let g:ctrlp_use_caching = 1
-"let g:ctrlp_clear_cache_on_exit = 0
-"let g:ctrlp_max_files=0
-"let g:ctrlp_max_depth=40
-
 " Removes whitespace after saving
 autocmd BufWritePost * FixWhitespace
-
 
 " vim-airline
 let g:airline_theme = 'powerlineish'
@@ -309,9 +321,24 @@ let g:airline_skip_empty_sections = 1
 " Python vim-airline
 let g:airline#extensions#virtualenv#enabled = 1
 
+
+
+
+"" NERDTree configuration
+let g:NERDTreeChDirMode=2
+let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeShowBookmarks=1
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+let g:NERDTreeWinSize = 50
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+nnoremap <silent> <F2> :NERDTreeFind<CR>
+noremap <F3> :NERDTreeToggle<CR>
+
+
 " Tagbar
 nmap <F4> :TagbarToggle<CR>
-
 
 
 nmap  <C-a> <Plug>(ale_previous_wrap)
@@ -350,66 +377,70 @@ let g:SuperTabClosePreviewOnPopupClose = 1
 
 
 
+" Fuzzy find
 " fzf
-let g:fzf_nvim_statusline = 0 " disable statusline overwriting
+"let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 let g:fzf_action = {
       \ 'ctrl-s': 'split',
       \ 'ctrl-v': 'vsplit'
       \ }
-nnoremap <c-p> :FZF<cr>
-
-augroup fzf
-    autocmd!
-    autocmd! FileType fzf
-    autocmd  FileType fzf set laststatus=0 noshowmode noruler
-        \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-augroup END
 
 
+nnoremap <c-p> :FZF <cr>
+nnoremap <C-p> :Files<CR>
+nnoremap <C-o> :Buffers<CR>
+nnoremap <C-g> :GFiles<CR>
+nnoremap <C-a> :Rg<CR>
+
+
+"augroup fzf
+    "autocmd!
+   "" autocmd! FileType fzf
+    "autocmd  FileType fzf set laststatus=0 noshowmode noruler
+        "\| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+"augroup END
 
 "*****************************************************************************
 "" LANGUAGE SERVER PROTOCOLS
 "*****************************************************************************
-
 " ALE
 let g:ale_set_highlights = 0  " Dont underline errors/warnings
- let g:ale_sign_error = '✘'
+ let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
 
 highlight ALEErrorSign guifg=#FF0000
 highlight ALEWarningSign guifg=#F2C38F
-
-let g:ale_completion_enabled = 0
-
-" map <F5> to alefix eslint
-" TODO Wrap in a if statement .
-nnoremap <F5> :ALEFix eslint<cr>
+nnoremap <Leader>d :ALEFix<cr>
 
 
-" Autocompletion
 
 
-" Stop ale on javascripts
-"autocmd BufEnter *.js ALEDisable
 
+
+let g:ale_linters = {
+      \ 'cs': ['OmniSharp']
+      \}
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>p  <Plug>(coc-codeaction-selected)
 
 
 "*****************************************************************************
-"" LANGUAGE SERVER PROTOCOLS Ends
+"" snippets
 "*****************************************************************************
 
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
 
-nnoremap <Leader>s :SemanticHighlightToggle<cr>
-nnoremap <Leader>q :DockerToolsToggle<cr>
-nnoremap <Leader>a :Grepper<cr>
+"*****************************************************************************
+"" font size and stuff
+"*****************************************************************************
+set guifont=Hack\ Nerd\ Font::h14
 
-
-
-" increase font size
-let s:fontsize = 12
 function! AdjustFontSize(amount)
       let s:fontsize = s:fontsize+a:amount
-        :execute "GuiFont! DejaVu Sans Mono:h" . s:fontsize
+        :execute "set guifont=Consolas:h" . s:fontsize
 endfunction
 
 noremap <C-ScrollWheelUp> :call AdjustFontSize(1)<CR>
@@ -422,3 +453,57 @@ inoremap <C-ScrollWheelDown> <Esc>:call AdjustFontSize(-1)<CR>a
 " In insert mode, pressing ctrl + numpad's+ increases the font
 inoremap <C-kPlus> <Esc>:call AdjustFontSize(1)<CR>a
 inoremap <C-kMinus> <Esc>:call AdjustFontSize(-1)<CR>a
+
+let g:rainbow_active = 1
+
+
+
+"*****************************************************************************
+"" shell
+"*****************************************************************************
+" Omnisharp settings
+let g:OmniSharp_server_stdio = 1
+
+augroup omnisharp_commands
+    autocmd!
+    " When Syntastic is available but not ALE, automatic syntax check on events
+    " (TextChanged requires Vim 7.4)
+    " autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
+    " Show type information automatically when the cursor stops moving
+    " Removed as it blocks error messasges.
+    "autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
+    " Update the highlighting whenever leaving insert mode
+    autocmd InsertLeave *.cs call OmniSharp#HighlightBuffer()
+    " Alternatively, use a mapping to refresh highlighting for the current buffer
+    autocmd FileType cs nnoremap <buffer> <Leader>th :OmniSharpHighlightTypes<CR>
+    " The following commands are contextual, based on the cursor position.
+    autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fi :OmniSharpFindImplementations<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fs :OmniSharpFindSymbol<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fu :OmniSharpFindUsages<CR>
+    " Finds members in the current buffer
+    autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>tt :OmniSharpTypeLookup<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>dc :OmniSharpDocumentation<CR>
+    autocmd FileType cs nnoremap <buffer> <C-\> :OmniSharpSignatureHelp<CR>
+    autocmd FileType cs inoremap <buffer> <C-\> <C-o>:OmniSharpSignatureHelp<CR>
+    " Navigate up and down by method/property/field
+    autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
+    autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
+ augroup END
+
+" Contextual code actions (uses fzf, CtrlP or unite.vim when available)
+nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
+" Run code actions with text selected in visual mode to extract method
+xnoremap <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
+" Rename with dialog
+nnoremap <Leader>nm :OmniSharpRename<CR>
+nnoremap <F2> :OmniSharpRename<CR>
+" Rename without dialog - with cursor on the symbol to rename: `:Rename newname`
+command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
+nnoremap <Leader>cf :OmniSharpCodeFormat<CR>
+
+
+
+
