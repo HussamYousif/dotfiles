@@ -26,14 +26,13 @@ Plug 'artanikin/vim-synthwave84'
 Plug 'romgrk/doom-one.vim'
 Plug 'onsails/lspkind-nvim'
 
+" Syntax
+Plug 'stephpy/vim-yaml'
+
 " LSP
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'w0rp/ale'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-" .net
-Plug 'omnisharp/omnisharp-vim'
-
-
 
 " Utils and GUI
 Plug 'ap/vim-css-color'
@@ -51,6 +50,7 @@ Plug 'xolox/vim-misc'
 Plug 'frazrepo/vim-rainbow'
 Plug 'ryanoasis/vim-devicons'
 Plug 'akinsho/nvim-bufferline.lua'
+Plug 'kshenoy/vim-signature'
 
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'breuckelen/vim-resize'
@@ -152,7 +152,7 @@ filetype plugin indent on
 " ***** Basics
 "
 "" Color
-colorscheme gruvbox
+colorscheme palenight
 set background=dark
 syntax on
 
@@ -393,12 +393,12 @@ nnoremap <C-g> :GFiles<CR>
 nnoremap <C-a> :Rg<CR>
 
 
-"augroup fzf
-    "autocmd!
-   "" autocmd! FileType fzf
-    "autocmd  FileType fzf set laststatus=0 noshowmode noruler
-        "\| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-"augroup END
+augroup fzf
+    autocmd!
+    autocmd! FileType fzf
+    autocmd  FileType fzf set laststatus=0 noshowmode noruler
+        \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+augroup END
 
 "*****************************************************************************
 "" LANGUAGE SERVER PROTOCOLS
@@ -416,10 +416,7 @@ nnoremap <Leader>d :ALEFix<cr>
 
 
 
-
-let g:ale_linters = {
-      \ 'cs': ['OmniSharp']
-      \}
+let g:coc_node_path = '/home/huski/.nvm/versions/node/v16.9.0/bin/node'
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
@@ -436,7 +433,7 @@ imap <C-k> <Plug>(neosnippet_expand_or_jump)
 "*****************************************************************************
 "" font size and stuff
 "*****************************************************************************
-set guifont=Hack\ Nerd\ Font::h14
+set guifont=Fira\ Code\ Nerd\ Font:h14
 
 function! AdjustFontSize(amount)
       let s:fontsize = s:fontsize+a:amount
@@ -459,7 +456,7 @@ let g:rainbow_active = 1
 
 
 "*****************************************************************************
-"" shell
+"" OMNISHARP
 "*****************************************************************************
 " Omnisharp settings
 let g:OmniSharp_server_stdio = 1
@@ -506,4 +503,29 @@ nnoremap <Leader>cf :OmniSharpCodeFormat<CR>
 
 
 
+"*****************************************************************************
+"" GO
+"*****************************************************************************
 
+augroup go
+    autocmd!
+    " Finds members in the current buffer
+    autocmd FileType go nnoremap <buffer> <Leader>fd :GoDef<CR>
+      " :GoCoverageToggle
+    autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)autocmd FileType go nmap <Leader>d <Plug>(go-doc)
+
+    " :GoInfo
+    autocmd FileType go nmap <Leader>i <Plug>(go-info)
+
+    " :GoMetaLinter
+    autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
+   " :GoDef but opens in a vertical split
+    autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
+    " :GoDef but opens in a horizontal split
+    autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
+ augroup END
+
+
+"*****************************************************************************
+"" Typescript
+"*****************************************************************************
