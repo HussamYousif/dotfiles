@@ -11,15 +11,13 @@
     "javascript",
     "javascriptreact",
     "typescriptreact",
-    "css",
-    "go"
+    "css"
   ],
   "diagnostic.checkCurrentLine": false,
   "diagnostic.messageTarget": "float",
   "diagnostic.separateRelatedInformationAsDiagnostics": true,
   "diagnostic.virtualText": false,
   "diagnostic.virtualTextCurrentLineOnly": false,
-
   "eslint.format.enable": true,
   "eslint.run": "onSave",
 
@@ -33,8 +31,9 @@
   "prettier.jsxBracketSameLine": false,
   "prettier.arrowParens": "always",
 
-  "javascript.referencesCodeLens.enable": false,
-  "javascript.implementationsCodeLens.enable": false,
   "typescript.referencesCodeLens.enable": false,
-  "typescript.implementationsCodeLens.enable": false
+  "typescript.implementationsCodeLens.enable": false,
+  "typescript.showUnused": true,
+  "tsserver.log":"verbose",
+  "snippets.userSnippetsDirectory": "C:/Users/Hussam Yousif/AppData/Local/nvim/plugged/vim-snippets/UltiSnips"
 }

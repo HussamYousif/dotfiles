@@ -1,38 +1,22 @@
 call plug#begin('~/Appdata/Local/nvim/plugged')
 " Colorschemes
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'sonph/onehalf'
-Plug 'morhetz/gruvbox'
-Plug 'altercation/vim-colors-solarized'
-Plug 'arcticicestudio/nord-vim'
-Plug 'trevordmiller/nova-vim'
-Plug 'jacoborus/tender.vim'
-Plug 'connorholyday/vim-snazzy'
-Plug 'sts10/vim-pink-moon'
-Plug 'tomasr/molokai'
 Plug 'dracula/vim'
-Plug 'vim-scripts/moria'
-Plug 'joshdick/onedark.vim'
-Plug 'NLKNguyen/papercolor-theme'
 Plug 'jnurmine/Zenburn'
 Plug 'gosukiwi/vim-atom-dark'
-Plug 'rakr/vim-one'
 Plug 'ciaranm/inkpot'
-Plug 'kyoz/purify'
-Plug 'vimcolorschemes/vimcolorschemes'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'ghifarit53/tokyonight-vim'
 Plug 'artanikin/vim-synthwave84'
 Plug 'romgrk/doom-one.vim'
 Plug 'onsails/lspkind-nvim'
-
-" Syntax
-Plug 'stephpy/vim-yaml'
+Plug 'edeneast/nightfox.nvim'
+Plug 'christianchiarulli/nvcode-color-schemes.vim'
+Plug 'Pocco81/Catppuccino.nvim'
 
 " LSP
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'w0rp/ale'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
 
 " Utils and GUI
 Plug 'ap/vim-css-color'
@@ -41,23 +25,18 @@ Plug 'bronson/vim-trailing-whitespace'
 Plug 'scrooloose/nerdtree'
 Plug 'raimondi/delimitmate'
 Plug 'yggdroot/indentline'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
-Plug 'habamax/vim-sendtoterm'
-Plug 'xolox/vim-notes'
 Plug 'xolox/vim-misc'
 Plug 'frazrepo/vim-rainbow'
 Plug 'ryanoasis/vim-devicons'
 Plug 'akinsho/nvim-bufferline.lua'
-Plug 'kshenoy/vim-signature'
-
+Plug 'folke/todo-comments.nvim'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'breuckelen/vim-resize'
 Plug 'RRethy/vim-illuminate'
 
 Plug 'terryma/vim-smooth-scroll'
-Plug 'tyru/restart.vim'
+
 " Fuzzy find
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -66,41 +45,38 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+" Keeping my tasks and the like
+Plug 'nvim-neorg/neorg'
+
 " Awesome plugins
 Plug 'tpope/vim-surround'
-Plug 'majutsushi/tagbar'
+Plug 'ray-x/navigator.lua'
 
-" Autocompletion and LSP
-
-" Snippets
-Plug 'shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
 
 " Git
-Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
-Plug 'cedarbaum/fugitive-azure-devops.vim'
 
-"Nvim 5
-" TODO Treesitter, telescope and stuff
-" Plug 'nvim-treesitter/nvim-treesitter'
+" Treesitter
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'p00f/nvim-ts-rainbow'
+Plug 'nvim-treesitter/playground'
+
+
+" Snippets
+Plug 'honza/vim-snippets'
 
 call plug#end()
-
-filetype indent plugin on
 
 
 
 set hidden
 set encoding=utf8
 
-set tabstop=4
-set shiftwidth=4
-set expandtab
-
 
 " Set the filetype spaces here.
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2
 au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
@@ -117,18 +93,6 @@ set autoread
 
 " I'm lazy and want case insensitive search.
 set ignorecase
-
-"" Git
-noremap <Leader>ga :Gwrite<CR>
-noremap <Leader>gc :Gcommit<CR>
-noremap <Leader>gsh :Gpush<CR>
-noremap <Leader>gll :Gpull<CR>
-noremap <Leader>gs :Gstatus<CR>
-noremap <Leader>gb :Gblame<CR>
-noremap <Leader>gd :Gvdiff<CR>
-noremap <Leader>gr :Gremove<CR>
-
-nnoremap <leader>gt :GV<CR>
 
 
 "" Tabs
@@ -152,9 +116,13 @@ filetype plugin indent on
 " ***** Basics
 "
 "" Color
-colorscheme palenight
+colorscheme snazzy
 set background=dark
 syntax on
+
+
+" configure nvcode-color-schemes
+let g:nvcode_termcolors=256
 
 "" Fix backspace indent
 set backspace=indent,eol,start
@@ -253,35 +221,8 @@ imap <S-Insert> <C-R>*
 let g:rooter_patterns = ['.git/']
 
 
-
-" vim-airline
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-let g:airline_powerline_fonts = 1
-
-if !exists('g:airline_powerline_fonts')
-  let g:airline#extensions#tabline#left_sep = ' '
-  let g:airline#extensions#tabline#left_alt_sep = '|'
-  let g:airline_left_sep          = '?'
-  let g:airline_left_alt_sep      = '»'
-  let g:airline_right_sep         = '?'
-  let g:airline_right_alt_sep     = '«'
-  let g:airline#extensions#branch#prefix     = '?' "?, ?, ?
-  let g:airline#extensions#readonly#symbol   = '?'
-  let g:airline#extensions#linecolumn#prefix = '¶'
-  let g:airline#extensions#paste#symbol      = '?'
-  let g:airline_symbols.linenr    = '?'
-  let g:airline_symbols.branch    = '?'
-  let g:airline_symbols.paste     = '?'
-  let g:airline_symbols.paste     = 'Þ'
-  let g:airline_symbols.paste     = '?'
-  let g:airline_symbols.whitespace = '?'
-else
-endif
-
-
+" show dot files
+let NERDTreeShowHidden=1
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 
@@ -309,20 +250,6 @@ let g:NERDToggleCheckAllLines = 1
 " Removes whitespace after saving
 autocmd BufWritePost * FixWhitespace
 
-" vim-airline
-let g:airline_theme = 'powerlineish'
-let g:airline#extensions#syntastic#enabled = 1
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tagbar#enabled = 1
-let g:airline_skip_empty_sections = 1
-
-
-" Python vim-airline
-let g:airline#extensions#virtualenv#enabled = 1
-
-
-
 
 "" NERDTree configuration
 let g:NERDTreeChDirMode=2
@@ -339,16 +266,6 @@ noremap <F3> :NERDTreeToggle<CR>
 
 " Tagbar
 nmap <F4> :TagbarToggle<CR>
-
-
-nmap  <C-a> <Plug>(ale_previous_wrap)
-nmap <silent> <C-s> <Plug>(ale_next_wrap)
-nmap <leader>d <Plug>(ale_go_to_definition)
-nmap <leader>r <Plug>(ale_find_reference)
-nmap <leader>h <Plug>(ale_hover)
-
-" Set this. Airline will handle the rest.
-let g:airline#extensions#ale#enabled = 1
 
 " Rainbow param
 let g:rbpt_colorpairs = [
@@ -376,65 +293,16 @@ let g:rbpt_max = 16
 let g:SuperTabClosePreviewOnPopupClose = 1
 
 
-
-" Fuzzy find
-" fzf
-"let g:fzf_nvim_statusline = 0 " disable statusline overwriting
-let g:fzf_action = {
-      \ 'ctrl-s': 'split',
-      \ 'ctrl-v': 'vsplit'
-      \ }
-
-
-nnoremap <c-p> :FZF <cr>
-nnoremap <C-p> :Files<CR>
-nnoremap <C-o> :Buffers<CR>
-nnoremap <C-g> :GFiles<CR>
-nnoremap <C-a> :Rg<CR>
-
-
-augroup fzf
-    autocmd!
-    autocmd! FileType fzf
-    autocmd  FileType fzf set laststatus=0 noshowmode noruler
-        \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-augroup END
-
-"*****************************************************************************
-"" LANGUAGE SERVER PROTOCOLS
-"*****************************************************************************
-" ALE
-let g:ale_set_highlights = 0  " Dont underline errors/warnings
- let g:ale_sign_error = '>>'
-let g:ale_sign_warning = '--'
-
-highlight ALEErrorSign guifg=#FF0000
-highlight ALEWarningSign guifg=#F2C38F
-nnoremap <Leader>d :ALEFix<cr>
-
-
-
-
-
-let g:coc_node_path = '/home/huski/.nvm/versions/node/v16.9.0/bin/node'
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-nmap <leader>p  <Plug>(coc-codeaction-selected)
-
-
-"*****************************************************************************
-"" snippets
-"*****************************************************************************
-
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-
 "*****************************************************************************
 "" font size and stuff
 "*****************************************************************************
-set guifont=Fira\ Code\ Nerd\ Font:h14
 
+set shell="C:\Program Files\Git\git-bash.exe"
+
+set guifont=Consolas:h14
+
+
+let s:fontsize = 14
 function! AdjustFontSize(amount)
       let s:fontsize = s:fontsize+a:amount
         :execute "set guifont=Consolas:h" . s:fontsize
@@ -446,86 +314,214 @@ inoremap <C-ScrollWheelUp> <Esc>:call AdjustFontSize(1)<CR>a
 inoremap <C-ScrollWheelDown> <Esc>:call AdjustFontSize(-1)<CR>a
 
 
-
 " In insert mode, pressing ctrl + numpad's+ increases the font
 inoremap <C-kPlus> <Esc>:call AdjustFontSize(1)<CR>a
 inoremap <C-kMinus> <Esc>:call AdjustFontSize(-1)<CR>a
 
 let g:rainbow_active = 1
 
+"*****************************************************************************
+"" COC
+"*****************************************************************************
+" Actions
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+xmap <leader>k  <Plug>(coc-codeaction-cursor)
+nmap <leader>k  <Plug>(coc-codeaction-cursor)
+xmap <leader>l  <Plug>(coc-codeaction-line)
+nmap <leader>l  <Plug>(coc-codeaction-line)
+xmap <leader>rr  <Plug>(coc-refactor)
+nmap <leader>rr  <Plug>(coc-refactor)
+
+
+" Navigations
+xmap <leader>fi  <Plug>(coc-implementation)
+nmap <leader>fi  <Plug>(coc-implementation)
+
+xmap <leader>fd  <Plug>(coc-declaration)
+nmap <leader>fd  <Plug>(coc-declaration)
+
+xmap <leader>fr  <Plug>(coc-references)
+nmap <leader>fr  <Plug>(coc-references)
+
+" Errors handling
+xmap <leader>di  <Plug>(coc-diagnostic-info)
+nmap <leader>di  <Plug>(coc-diagnostic-info)
+
+xmap <leader>dn  <Plug>(coc-diagnostic-next)
+nmap <leader>dn  <Plug>(coc-diagnostic-next)
+
+xmap <leader>dp  <Plug>(coc-diagnostic-prev)
+nmap <leader>dp  <Plug>(coc-diagnostic-prev)
+
+
+xmap <leader>ne  <Plug>(coc-diagnostic-next-error)
+nmap <leader>ne  <Plug>(coc-diagnostic-next-error)
+
+
+noremap <leader>cc :CocCommand<CR>
+noremap <leader>ca :CocAction<CR>
+noremap <leader>cf :CocFix<CR>
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" SNIPPETS
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+"
+" " Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+"
+" " Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+"
+" " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+"
+" " Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+"
+" " Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
+
+"*****************************************************************************
+"" Treesitter options
+"*****************************************************************************
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ignore_install = { "javascript" }, -- List of parsers to ignore installing
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    disable = { "c", "rust" },  -- list of language that will be disabled
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    custom_captures = {
+      -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
+      ["foo.bar"] = "Identifier",
+    },
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "c-w",
+      scope_incremental = "grc",
+      node_decremental = "grm",
+    },
+  },
+}
+EOF
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  indent = {
+    enable = true
+  }
+}
+EOF
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  rainbow = {
+    enable = true,
+    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+    max_file_lines = nil, -- Do not enable for files with more than n lines, int
+    --colors = {}, -- table of hex strings
+    --termcolors = {} -- table of colour name strings
+  }
+}
+EOF
+
+lua <<EOF
+require'todo-comments'.setup {
+}
+EOF
+
+
+lua << EOF
+    require('neorg').setup {
+-- Tell Neorg what modules to load
+load = {
+    ["core.defaults"] = {}, -- Load all the default modules
+    ["core.norg.concealer"] = {}, -- Allows for use of icons
+    ["core.norg.dirman"] = { -- Manage your directories with Neorg
+	config = {
+	    workspaces = {
+		my_workspace = "~/neorg"
+	    }
+	}
+    }
+},
+    }
+EOF
+
+
+
+"TELESCOPE
+"Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+" Search for word under cursor
+nnoremap <leader>fw :lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>
+
+augroup GoFiles
+  autocmd!
+  autocmd Filetype go nmap <buffer> <silent> <leader>fd :GoDef<CR>
+augroup END
+
+
 
 
 "*****************************************************************************
-"" OMNISHARP
+"" Javascript
 "*****************************************************************************
-" Omnisharp settings
-let g:OmniSharp_server_stdio = 1
+augroup ReactFiletypes
+  autocmd!
+  autocmd BufRead,BufNewFile *.jsx set filetype=javascriptreact
+  autocmd BufRead,BufNewFile *.tsx set filetype=typescriptreact
+augroup END
 
-augroup omnisharp_commands
-    autocmd!
-    " When Syntastic is available but not ALE, automatic syntax check on events
-    " (TextChanged requires Vim 7.4)
-    " autocmd BufEnter,TextChanged,InsertLeave *.cs SyntasticCheck
-    " Show type information automatically when the cursor stops moving
-    " Removed as it blocks error messasges.
-    "autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
-    " Update the highlighting whenever leaving insert mode
-    autocmd InsertLeave *.cs call OmniSharp#HighlightBuffer()
-    " Alternatively, use a mapping to refresh highlighting for the current buffer
-    autocmd FileType cs nnoremap <buffer> <Leader>th :OmniSharpHighlightTypes<CR>
-    " The following commands are contextual, based on the cursor position.
-    autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>fi :OmniSharpFindImplementations<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>fs :OmniSharpFindSymbol<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>fu :OmniSharpFindUsages<CR>
-    " Finds members in the current buffer
-    autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>tt :OmniSharpTypeLookup<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>dc :OmniSharpDocumentation<CR>
-    autocmd FileType cs nnoremap <buffer> <C-\> :OmniSharpSignatureHelp<CR>
-    autocmd FileType cs inoremap <buffer> <C-\> <C-o>:OmniSharpSignatureHelp<CR>
-    " Navigate up and down by method/property/field
-    autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
-    autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
- augroup END
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
 
-" Contextual code actions (uses fzf, CtrlP or unite.vim when available)
-nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
-" Run code actions with text selected in visual mode to extract method
-xnoremap <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
-" Rename with dialog
-nnoremap <Leader>nm :OmniSharpRename<CR>
-nnoremap <F2> :OmniSharpRename<CR>
-" Rename without dialog - with cursor on the symbol to rename: `:Rename newname`
-command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
-nnoremap <Leader>cf :OmniSharpCodeFormat<CR>
-
-
-
-"*****************************************************************************
-"" GO
-"*****************************************************************************
-
-augroup go
-    autocmd!
-    " Finds members in the current buffer
-    autocmd FileType go nnoremap <buffer> <Leader>fd :GoDef<CR>
-      " :GoCoverageToggle
-    autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)autocmd FileType go nmap <Leader>d <Plug>(go-doc)
-
-    " :GoInfo
-    autocmd FileType go nmap <Leader>i <Plug>(go-info)
-
-    " :GoMetaLinter
-    autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
-   " :GoDef but opens in a vertical split
-    autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
-    " :GoDef but opens in a horizontal split
-    autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
- augroup END
-
-
-"*****************************************************************************
-"" Typescript
-"*****************************************************************************
+autocmd FileType javascriptreact setlocal shiftwidth=2 tabstop=2
+autocmd FileType typescriptreact setlocal shiftwidth=2 tabstop=2
