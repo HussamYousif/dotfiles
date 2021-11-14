@@ -29,13 +29,26 @@ Plug 'mhinz/vim-startify'
 Plug 'xolox/vim-misc'
 Plug 'frazrepo/vim-rainbow'
 Plug 'ryanoasis/vim-devicons'
-Plug 'akinsho/nvim-bufferline.lua'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/todo-comments.nvim'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'breuckelen/vim-resize'
 Plug 'RRethy/vim-illuminate'
-
 Plug 'terryma/vim-smooth-scroll'
+Plug 'lazytanuki/nvim-mapper'
+Plug 'romgrk/barbar.nvim'
+Plug 'camspiers/animate.vim'
+
+" TODO comment search
+Plug 'folke/todo-comments.nvim'
+" Tagbar
+Plug 'simrat39/symbols-outline.nvim'
+
+" Power Line
+Plug 'famiu/feline.nvim', { 'branch': 'develop' }
+
+" Zen mode
+Plug 'folke/zen-mode.nvim'
 
 " Fuzzy find
 Plug 'nvim-lua/popup.nvim'
@@ -45,6 +58,12 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+" commentor
+Plug 'terrortylor/nvim-comment'
+
+" Clipboard manager
+Plug 'AckslD/nvim-neoclip.lua'
+
 " Keeping my tasks and the like
 Plug 'nvim-neorg/neorg'
 
@@ -52,10 +71,11 @@ Plug 'nvim-neorg/neorg'
 Plug 'tpope/vim-surround'
 Plug 'ray-x/navigator.lua'
 
-
 " Git
-Plug 'airblade/vim-gitgutter'
 Plug 'junegunn/gv.vim'
+Plug 'f-person/git-blame.nvim'
+Plug 'tanvirtin/vgit.nvim'
+Plug 'TimUntersberger/neogit'
 
 " Treesitter
 Plug 'nvim-lua/plenary.nvim'
@@ -82,7 +102,6 @@ au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType php setlocal ts=2 sts=2 sw=2
 
-
 set number relativenumber
 
 " Disable all sounds
@@ -100,7 +119,7 @@ nnoremap <Tab> gt
 nnoremap <S-Tab> gT
 nnoremap <silent> <S-t> :tabnew<CR>
 
-set clipboard=unnamed
+set clipboard+=unnamedplus
 
 "" Buffer nav
 noremap <leader>z :bp<CR>
@@ -124,6 +143,11 @@ syntax on
 " configure nvcode-color-schemes
 let g:nvcode_termcolors=256
 
+set termguicolors
+
+" Exit terminal mode with esc
+tnoremap <Esc> <C-\><C-n>
+
 "" Fix backspace indent
 set backspace=indent,eol,start
 
@@ -136,7 +160,6 @@ let mapleader=','
 set incsearch
 set ignorecase
 set smartcase
-set nohlsearch
 
 "" Directories for swp files
 set nobackup
@@ -171,13 +194,6 @@ set splitright
 
 noremap <Leader>h :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-
-nnoremap <F8> :vert terminal<CR>
 
 " python
 " vim-python
@@ -205,6 +221,8 @@ cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
+cnoreabbrev Vsp vsp
+cnoreabbrev Sp sp
 
 
 set mouse=a
@@ -264,9 +282,6 @@ nnoremap <silent> <F2> :NERDTreeFind<CR>
 noremap <F3> :NERDTreeToggle<CR>
 
 
-" Tagbar
-nmap <F4> :TagbarToggle<CR>
-
 " Rainbow param
 let g:rbpt_colorpairs = [
     \ ['brown',       'RoyalBlue3'],
@@ -296,16 +311,13 @@ let g:SuperTabClosePreviewOnPopupClose = 1
 "*****************************************************************************
 "" font size and stuff
 "*****************************************************************************
-
-set shell="C:\Program Files\Git\git-bash.exe"
-
-set guifont=Consolas:h14
+set guifont=FiraCode\ Nerd\ Font:h15
 
 
 let s:fontsize = 14
 function! AdjustFontSize(amount)
       let s:fontsize = s:fontsize+a:amount
-        :execute "set guifont=Consolas:h" . s:fontsize
+        :execute "set guifont=FiraCode Nerd Font:h" . s:fontsize
 endfunction
 
 noremap <C-ScrollWheelUp> :call AdjustFontSize(1)<CR>
@@ -404,77 +416,33 @@ xmap <leader>x  <Plug>(coc-convert-snippet)
 "*****************************************************************************
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ignore_install = { "javascript" }, -- List of parsers to ignore installing
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-    disable = { "c", "rust" },  -- list of language that will be disabled
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
-}
-EOF
-
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
-    custom_captures = {
-      -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
-      ["foo.bar"] = "Identifier",
     },
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
-}
-EOF
-
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
   incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "gnn",
-      node_incremental = "c-w",
-      scope_incremental = "grc",
-      node_decremental = "grm",
+      enable = true,
+      keymaps = {
+        init_selection = "<C-n>",
+        node_incremental = "<C-n>",
+        scope_incremental = "<C-s>",
+        node_decremental = "<C-r>",
     },
+    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
   },
 }
 EOF
 
 lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  indent = {
-    enable = true
+require('nvim_comment').setup()
+EOF
+
+lua << EOF
+  require("todo-comments").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
   }
-}
 EOF
-
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  rainbow = {
-    enable = true,
-    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-    max_file_lines = nil, -- Do not enable for files with more than n lines, int
-    --colors = {}, -- table of hex strings
-    --termcolors = {} -- table of colour name strings
-  }
-}
-EOF
-
-lua <<EOF
-require'todo-comments'.setup {
-}
-EOF
-
-
 lua << EOF
     require('neorg').setup {
 -- Tell Neorg what modules to load
@@ -488,11 +456,34 @@ load = {
 	    }
 	}
     }
-},
-    }
+},}
 EOF
 
+lua << EOF
+require('feline').setup()
+EOF
 
+lua << EOF
+  require("zen-mode").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
+
+lua << EOF
+require('vgit').setup()
+EOF
+
+lua << EOF
+require('neogit').setup()
+EOF
+
+lua << EOF
+require('neoclip').setup({})
+EOF
+
+nnoremap <leader>cp <cmd>Telescope neoclip a extra=star,plus,b<cr>
 
 "TELESCOPE
 "Find files using Telescope command-line sugar.
@@ -506,10 +497,10 @@ nnoremap <leader>fw :lua require('telescope.builtin').grep_string { search = vim
 augroup GoFiles
   autocmd!
   autocmd Filetype go nmap <buffer> <silent> <leader>fd :GoDef<CR>
+  autocmd Filetype go nmap <buffer> <silent> <leader>tf :GoTestFunc<CR>
+  autocmd Filetype go nmap <buffer> <silent> <leader>tt :GoTest<CR>
+  autocmd Filetype go nmap <buffer> <silent> <leader>tc :GoCoverage<CR>
 augroup END
-
-
-
 
 "*****************************************************************************
 "" Javascript
@@ -525,3 +516,16 @@ autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
 
 autocmd FileType javascriptreact setlocal shiftwidth=2 tabstop=2
 autocmd FileType typescriptreact setlocal shiftwidth=2 tabstop=2
+
+
+
+"*****************************************************************************
+"" OSX breaks out of insert mode with option/meta key.
+"*****************************************************************************
+" fix meta-keys which generate <Esc>a .. <Esc>z
+imap <F5> ()
+imap <F6> []
+imap <F7> {}
+
+let g:node_host_prog='/Users/hussamyousif/.nvm/versions/node/v17.0.1/bin/node'
+let g:coc_node_path='/Users/hussamyousif/.nvm/versions/node/v17.0.1/bin/node'
