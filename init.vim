@@ -74,7 +74,9 @@ Plug 'ray-x/navigator.lua'
 " Git
 Plug 'junegunn/gv.vim'
 Plug 'f-person/git-blame.nvim'
-Plug 'tanvirtin/vgit.nvim'
+" Visual git changes, pretty decent but cba
+" getting into it atm
+" Plug 'tanvirtin/vgit.nvim'
 Plug 'TimUntersberger/neogit'
 
 " Treesitter
@@ -93,6 +95,7 @@ call plug#end()
 
 set hidden
 set encoding=utf8
+set nohlsearch
 
 
 " Set the filetype spaces here.
@@ -278,7 +281,6 @@ let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 50
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-nnoremap <silent> <F2> :NERDTreeFind<CR>
 noremap <F3> :NERDTreeToggle<CR>
 
 
@@ -311,7 +313,7 @@ let g:SuperTabClosePreviewOnPopupClose = 1
 "*****************************************************************************
 "" font size and stuff
 "*****************************************************************************
-set guifont=FiraCode\ Nerd\ Font:h15
+set guifont=FiraCode\ Nerd\ Font:h18
 
 
 let s:fontsize = 14
@@ -471,9 +473,10 @@ lua << EOF
   }
 EOF
 
-lua << EOF
-require('vgit').setup()
-EOF
+" Enable at the plug level first
+" lua << EOF
+"require('vgit').setup()
+"EOF
 
 lua << EOF
 require('neogit').setup()
@@ -481,6 +484,10 @@ EOF
 
 lua << EOF
 require('neoclip').setup({})
+EOF
+
+lua << EOF
+require('telescope').setup{ defaults = { file_ignore_patterns = {"vendor"} } }
 EOF
 
 nnoremap <leader>cp <cmd>Telescope neoclip a extra=star,plus,b<cr>
@@ -491,6 +498,12 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fj <cmd>Telescope jumplist<cr>
+nnoremap <leader>fc <cmd>Telescope colorscheme<cr>
+nnoremap <leader>fs <cmd>Telescope spell_suggest<cr>
+nnoremap <leader>fk <cmd>Telescope keymaps<cr>
+nnoremap <F2> <cmd>Telescope file_browser<cr>
+nnoremap <F4> <cmd>Telescope treesitter<cr>
 " Search for word under cursor
 nnoremap <leader>fw :lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>
 
@@ -526,6 +539,9 @@ autocmd FileType typescriptreact setlocal shiftwidth=2 tabstop=2
 imap <F5> ()
 imap <F6> []
 imap <F7> {}
+imap <F8> \|
+imap <F9> \
 
+" Need npm for coc
 let g:node_host_prog='/Users/hussamyousif/.nvm/versions/node/v17.0.1/bin/node'
 let g:coc_node_path='/Users/hussamyousif/.nvm/versions/node/v17.0.1/bin/node'
