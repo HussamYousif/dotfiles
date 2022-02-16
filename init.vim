@@ -141,12 +141,8 @@ filetype plugin indent on
 colorscheme snazzy
 set background=dark
 syntax on
+set notermguicolors
 
-
-" configure nvcode-color-schemes
-let g:nvcode_termcolors=256
-
-set termguicolors
 
 " Exit terminal mode with esc
 tnoremap <Esc> <C-\><C-n>
@@ -313,7 +309,7 @@ let g:SuperTabClosePreviewOnPopupClose = 1
 "*****************************************************************************
 "" font size and stuff
 "*****************************************************************************
-set guifont=FiraCode\ Nerd\ Font:h18
+set guifont=FiraCode\ Nerd\ Font:h17
 
 
 let s:fontsize = 14
@@ -543,5 +539,6 @@ imap <F8> \|
 imap <F9> \
 
 " Need npm for coc
-let g:node_host_prog='/Users/hussamyousif/.nvm/versions/node/v17.0.1/bin/node'
-let g:coc_node_path='/Users/hussamyousif/.nvm/versions/node/v17.0.1/bin/node'
+let g:node_host_prog='/Users/hussamyousif/.nvm/versions/node/v17.4.0/bin/node'
+let g:coc_node_path='~/.nvm/versions/node/v17.4.0/bin/node'
+" let g:coc_node_path = substitute(system('which node'), '\n', '', '')
