@@ -1,0 +1,7 @@
+require('plugins')
+require('keymaps')
+require('settings')
+require('colorscheme')
+require('lsp')
+require('lualine')
+require('abbreviations')
