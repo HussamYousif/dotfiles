@@ -31,18 +31,19 @@ map("v", "p", '"_dP', opts)
 
 -- Visual Block --
 -- Move text up and down
-map("x", "J", ":move '>+1<CR>gv-gv", opts)
-map("x", "K", ":move '<-2<CR>gv-gv", opts)
 map("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 map("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Custom
 map("n", "<Esc><Esc>", "<cmd>nohlsearch<cr>", opts)
 
+-- NvimTree
+map("n", "<Leader>tt", ":NvimTreeToggle<CR>", opts)
+map("n", "<Leader>tr", ":NvimTreeRefresh<CR>", opts)
+map("n", "<Leader>tf", ":NvimTreeFindFile<CR>", opts)
 
 -- Telescope
 map("n", "<Leader>ff", ":Telescope find_files<CR>", opts)
-
 map("n", "<Leader>fg",":Telescope live_grep<CR>", opts)
 map("n", "<Leader>fb" ,":Telescope buffers<CR>", opts)
 map("n", "<Leader>fh",":Telescope help_tags<CR>", opts)
@@ -50,9 +51,3 @@ map("n", "<Leader>fj",":Telescope jumplist<CR>", opts)
 map("n", "<Leader>fc",":Telescope colorscheme<CR>", opts)
 map("n", "<Leader>fs", ":Telescope spell_suggest<CR>", opts)
 map("n", "<Leader>fk", ":Telescope keymaps<CR>", opts)
-map("n", "<F2> ", ":Telescope file_browser<CR>", opts)
-map("n", "<F4> ", ":Telescope treesitter<CR>", opts)
-
--- NvimTree 
-
-

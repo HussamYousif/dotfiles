@@ -15,13 +15,14 @@ opt.mouse = 'a'                 -- Enable mouse support
 opt.clipboard = 'unnamedplus'   -- Copy/paste to system clipboard
 opt.swapfile = false            -- Don't use swapfile
 
+cmd [[cd ~/repos/]]
+
 -----------------------------------------------------------
 -- Neovim UI
 -----------------------------------------------------------
-opt.number = true               -- Show line number
+opt.relativenumber = true               -- Show line number
 opt.showmatch = true            -- Highlight matching parenthesis
 opt.foldmethod = 'marker'       -- Enable folding (default 'foldmarker')
-opt.colorcolumn = '80'          -- Line lenght marker at 80 columns
 opt.splitright = true           -- Vertical split to the right
 opt.splitbelow = true           -- Orizontal split to the bottom
 opt.ignorecase = true           -- Ignore case letters when search
@@ -48,11 +49,15 @@ opt.history = 100               -- Remember N lines in history
 opt.lazyredraw = true           -- Faster scrolling
 opt.synmaxcol = 240             -- Max column for syntax highlight
 
+
+
+
 -----------------------------------------------------------
--- Colorscheme Amd Font
+-- Colorscheme And Font
 -----------------------------------------------------------
 opt.termguicolors = true        -- Enable 24-bit RGB colors
-opt.guifont="FiraCode Nerd Font:h17"
+opt.guifont = 'FiraCode Nerd Font:h14'
+
 -- Don't auto commenting new lines
 cmd [[au BufEnter * set fo-=c fo-=r fo-=o]]
 
@@ -64,6 +69,11 @@ cmd [[
   autocmd FileType xml,html,xhtml,css,scss,javascript,lua,yaml setlocal shiftwidth=2 tabstop=2
 ]]
 
+opt.ff = 'unix'
+
+cmd [[
+  autocmd BufWritePost * set ff=unix
+]]
 -----------------------------------------------------------
 -- Autocompletion
 -----------------------------------------------------------
@@ -77,7 +87,8 @@ opt.completeopt = 'menuone,noselect'
 
 -- Open a terminal pane on the right using :Term
 cmd [[command Term :botright vsplit term://$SHELL]]
-
+-- Set shell
+cmd [[let &shell = has('win32') ? 'powershell' : 'pwsh']]
 -- Terminal visual tweaks:
 --- enter insert mode when switching to terminal
 --- close terminal buffer on process exit

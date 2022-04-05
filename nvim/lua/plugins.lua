@@ -8,6 +8,18 @@ end
 return require('packer').startup(function()
 	use 'wbthomason/packer.nvim'
 
+	-- Telescope
+	use 'nvim-lua/popup.nvim'
+	use 'nvim-lua/plenary.nvim'
+	use 'nvim-telescope/telescope.nvim'
+  -- use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+
+	-- Treesitter
+	-- Post-install/update hook with neovim command
+  	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+	use 'p00f/nvim-ts-rainbow'
+	use 'nvim-treesitter/playground'
+
 	-- Colorschemes.
 	use 'dracula/vim'
 	use 'jnurmine/Zenburn'
@@ -16,7 +28,6 @@ return require('packer').startup(function()
 	use 'kaicataldo/material.vim'
 	use 'artanikin/vim-synthwave84'
 	use 'romgrk/doom-one.vim'
-	use 'onsails/lspkind-nvim'
 	use 'edeneast/nightfox.nvim'
 	use 'christianchiarulli/nvcode-color-schemes.vim'
   use "folke/tokyonight.nvim"
@@ -26,30 +37,39 @@ return require('packer').startup(function()
   use "rebelot/kanagawa.nvim"
   use 'Pocco81/Catppuccino.nvim'
 
+	-- git
+	use 'f-person/git-blame.nvim'
+
   -- LSP
   use 'neovim/nvim-lspconfig' -- Collection of configurations for the built-in LSP client
+  use 'jose-elias-alvarez/null-ls.nvim'
+  use 'jose-elias-alvarez/nvim-lsp-ts-utils'
   use 'williamboman/nvim-lsp-installer'
   use { 'tami5/lspsaga.nvim', branch = 'nvim6.0' }
+	use 'onsails/lspkind-nvim'
+
+	-- Autocompletion
+  use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
+  use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
+  use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
+  use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
+  use 'L3MON4D3/LuaSnip' -- Snippets plugin
 
 	-- GUI
 	use 'mhinz/vim-startify'
 	use 'terrortylor/nvim-comment'
 	use 'folke/todo-comments.nvim'
-	use 'AckslD/nvim-neoclip.lua' -- Clipboard.
+	use {
+		"AckslD/nvim-neoclip.lua",
+		requires = {
+			{'tami5/sqlite.lua', module = 'sqlite'}
+		}
+	}
+
+	use 'jiangmiao/auto-pairs'
   -- StatusLine
-  use "nvim-lualine/lualine.nvim"
   use "SmiteshP/nvim-gps"
-
-
-
-  -- File Tree
-  use {
-      'kyazdani42/nvim-tree.lua',
-      requires = {
-        'kyazdani42/nvim-web-devicons', -- optional, for file icon
-      },
-      config = function() require'nvim-tree'.setup {} end
-  }
+	use {'nvim-lualine/lualine.nvim'}
 
   -- Projecting
   use {
@@ -67,32 +87,32 @@ return require('packer').startup(function()
 	use 'ryanoasis/vim-devicons'
 	use 'kyazdani42/nvim-web-devicons'
 
-	-- Power Line
-	--use 'famiu/feline.nvim', { 'branch': 'develop' }
-	  use {
-	    'glepnir/galaxyline.nvim', branch = 'main', config = function() require'statusline' end,
-	    requires = {'kyazdani42/nvim-web-devicons'}
-	  }
+  -- File Tree
+  use {
+      'kyazdani42/nvim-tree.lua',
+      requires = {
+        'kyazdani42/nvim-web-devicons', -- optional, for file icon
+      },
+  }
 
 	-- Zen mode
 	use 'folke/zen-mode.nvim'
 
-	-- Telescope
-	use 'nvim-lua/popup.nvim'
-	use 'nvim-lua/plenary.nvim'
-	use 'nvim-telescope/telescope.nvim'
-
-	-- Treesitter
-	-- Post-install/update hook with neovim command
-  	use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-	use 'p00f/nvim-ts-rainbow'
-	use 'nvim-treesitter/playground'
 
 	-- Utils
 	use 'tpope/vim-surround'
 
 	-- TODO ADD THESE
 	--use 'ray-x/navigator.lua'
+
+
+  use {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup {
+      }
+    end
+  }
 
   if packer_bootstrap then
     require('packer').sync()
