@@ -127,3 +127,11 @@ vim.cmd("command! DiagPrev lua vim.lsp.diagnostic.goto_prev()")
 vim.cmd("command! DiagNext lua vim.lsp.diagnostic.goto_next()")
 vim.cmd("command! DiagLine lua vim.lsp.diagnostic.show_line_diagnostics()")
 vim.cmd("command! Format lua vim.lsp.buf.formatting()")
+
+
+vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>",opts)
+vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>",opts)
+vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", opts)
+vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>", opts)

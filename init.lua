@@ -37,5 +37,5 @@ require "user.telescope-file-browser"
 require "user.sniprun"
 require "user.functions"
 require "user.gps"
-require "user.lir"
+require "user.trouble"
 vim.opt.laststatus = 3
