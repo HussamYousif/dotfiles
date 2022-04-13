@@ -67,13 +67,6 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 -- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 -- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
-keymap("n", ",d", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-keymap("n", ",D", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-keymap("n", ",ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-keymap("n", ",r", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-keymap("n", ",R", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-keymap("n", ",t", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-keymap("n", ",i", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 
 
 -- Custom
