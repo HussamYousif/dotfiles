@@ -263,7 +263,7 @@ tags: [weekly]
     lazy = false, -- Load immediately for better integration
     init = function()
       -- Calendar configuration
-      vim.g.calendar_no_mappings = 0
+      vim.g.calendar_no_mappings = 1 -- Disable default calendar mappings to prevent conflicts
       vim.g.calendar_monday = 1
       vim.g.calendar_weeknm = 4 -- Show week numbers
       vim.g.calendar_mark = "left-fit"

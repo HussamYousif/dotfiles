@@ -17,6 +17,12 @@ return {
   config = function(_, opts)
     local wk = require("which-key")
     wk.setup(opts)
+    
+    -- Global keybinding groups (not Clojure-specific)
+    wk.add({
+      { "<leader>c", group = "Code" },
+      { "<leader>ca", desc = "Code Actions" },
+    })
 
     -- Register comma prefix for Conjure commands (only in Clojure files)
     vim.api.nvim_create_autocmd("FileType", {

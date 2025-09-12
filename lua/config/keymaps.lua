@@ -25,5 +25,8 @@ vim.keymap.set("t", "<C-l>", "<C-\\><C-n><C-w>l", { desc = "Go to right window" 
 -- Jump to matching bracket/paren/brace
 vim.keymap.set("n", "<leader>fP", "%", { desc = "Jump to matching pair" })
 
+-- LSP Code Actions (ensure this takes precedence over any plugin conflicts)
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Actions" })
+
 -- Load Clojure-specific keymaps
 require("config.keymaps-clojure").setup()
