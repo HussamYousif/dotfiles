@@ -24,28 +24,18 @@ return {
               ["keep-require-at-start?"] = true,
             },
           },
-          on_attach = function(client, bufnr)
-            -- Enhanced Clojure-specific LSP keybindings
-            local opts = { buffer = bufnr, silent = true }
-            
-            -- Go to definition/references
-            vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, vim.tbl_extend("force", opts, { desc = "Go to definition" }))
-            vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, vim.tbl_extend("force", opts, { desc = "Find references" }))
-            vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, vim.tbl_extend("force", opts, { desc = "Go to implementation" }))
-            
-            -- Refactoring
-            vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "Rename symbol" }))
-            vim.keymap.set("n", "<leader>rf", vim.lsp.buf.format, vim.tbl_extend("force", opts, { desc = "Format code" }))
-            vim.keymap.set("n", "<leader>ra", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code actions" }))
-            
-            -- Hover and signature help
-            vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "Hover documentation" }))
-            vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "Signature help" }))
-            
-            -- Workspace management
-            vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, vim.tbl_extend("force", opts, { desc = "Add workspace folder" }))
-            vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, vim.tbl_extend("force", opts, { desc = "Remove workspace folder" }))
-          end,
+          keys = {
+            { "<leader>gd", vim.lsp.buf.definition, desc = "Go to definition" },
+            { "<leader>gr", vim.lsp.buf.references, desc = "Find references" },
+            { "<leader>gi", vim.lsp.buf.implementation, desc = "Go to implementation" },
+            { "<leader>rn", vim.lsp.buf.rename, desc = "Rename symbol" },
+            { "<leader>rf", vim.lsp.buf.format, desc = "Format code" },
+            { "<leader>ra", vim.lsp.buf.code_action, desc = "Code actions" },
+            { "K", vim.lsp.buf.hover, desc = "Hover documentation" },
+            { "<C-k>", vim.lsp.buf.signature_help, desc = "Signature help", mode = "i" },
+            { "<leader>wa", vim.lsp.buf.add_workspace_folder, desc = "Add workspace folder" },
+            { "<leader>wr", vim.lsp.buf.remove_workspace_folder, desc = "Remove workspace folder" },
+          },
         },
       },
     },

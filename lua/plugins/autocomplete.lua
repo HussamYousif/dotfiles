@@ -4,5 +4,5 @@ return {
   { "L3MON4D3/LuaSnip", enabled = false },
   { "rafamadriz/friendly-snippets", enabled = false },
   -- Optionally disable mini.snippets if used
-  { "echasnovski/mini.snippets", enabled = false },
+  { "nvim-mini/mini.snippets", enabled = false },
 }
