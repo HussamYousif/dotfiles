@@ -22,6 +22,21 @@ return {
     wk.add({
       { "<leader>c", group = "Code" },
       { "<leader>ca", desc = "Code Actions" },
+      -- Copilot AI keybindings
+      { "<leader>a", group = "AI (Copilot)" },
+      { "<leader>aa", desc = "Toggle Copilot Chat" },
+      { "<leader>aq", desc = "Quick Chat" },
+      { "<leader>ap", desc = "Prompt with Selection" },
+      { "<leader>ae", desc = "Explain Code" },
+      { "<leader>ar", desc = "Review Code" },
+      { "<leader>af", desc = "Fix Code" },
+      { "<leader>ao", desc = "Optimize Code" },
+      { "<leader>ad", desc = "Generate Docs" },
+      { "<leader>at", desc = "Generate Tests" },
+      { "<leader>ac", desc = "Generate Commit" },
+      { "<leader>aD", desc = "Debug Info" },
+      { "<leader>as", desc = "Stop Chat" },
+      { "<leader>aR", desc = "Reset Chat" },
     })
 
     -- Register comma prefix for Conjure commands (only in Clojure files)

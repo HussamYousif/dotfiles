@@ -21,3 +21,5 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
 
 -- Disable autocompletion
 vim.g.cmp_enabled = false
+-- Native inline completions don't support being shown as regular completions
+vim.g.ai_cmp = false
