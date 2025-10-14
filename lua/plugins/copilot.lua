@@ -62,7 +62,7 @@ return {
       },
     },
     keys = {
-      -- Chat commands with <leader>a prefix
+      { "<leader>a", nil, desc = "👾🤖 AI" },
       {
         "<leader>aa",
         function()
@@ -83,10 +83,7 @@ return {
       {
         "<leader>ap",
         function()
-          require("CopilotChat").ask(
-            vim.fn.input("Prompt: "),
-            { selection = require("CopilotChat.select").visual }
-          )
+          require("CopilotChat").ask(vim.fn.input("Prompt: "), { selection = require("CopilotChat.select").visual })
         end,
         desc = "Prompt with Visual Selection",
         mode = "v",
@@ -176,3 +173,4 @@ return {
     },
   },
 }
+
