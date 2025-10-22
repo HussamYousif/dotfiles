@@ -60,6 +60,10 @@ return {
           insert = "<C-CR>",
         },
       },
+      -- Enable integrations for MCPHub
+      integrations = {
+        mcphub = true, -- Enable MCPHub integration
+      },
     },
     keys = {
       { "<leader>a", nil, desc = "👾🤖 AI" },
