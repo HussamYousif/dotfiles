@@ -22,6 +22,13 @@ return {
     wk.add({
       { "<leader>c", group = "Code" },
       { "<leader>ca", desc = "Code Actions" },
+      -- Multi-cursor keybindings
+      { "<leader>h", group = "Multi-cursor" },
+      { "<leader>hm", desc = "Select all occurrences" },
+      { "<leader>ha", desc = "Add cursor up" },
+      { "<leader>hs", desc = "Add cursor down" },
+      { "<leader>ht", desc = "Toggle VM mappings" },
+      { "<leader>hq", desc = "Quit multi-cursor" },
       -- Copilot AI keybindings
       { "<leader>a", group = "AI (Copilot)" },
       { "<leader>aa", desc = "Toggle Copilot Chat" },

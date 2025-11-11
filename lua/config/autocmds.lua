@@ -35,3 +35,57 @@ vim.api.nvim_create_autocmd("User", {
     end
   end,
 })
+
+-- Auto-reload buffers changed outside of Neovim and re-source config on change
+local opencode_reload_grp = vim.api.nvim_create_augroup("opencode_auto_reload", { clear = true })
+
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave", "CursorHold", "BufEnter" }, {
+  group = opencode_reload_grp,
+  command = "silent! checktime",
+})
+
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+  group = opencode_reload_grp,
+  pattern = "*",
+  callback = function(event)
+    local cfg = vim.fn.stdpath("config")
+    local file = event.file or vim.api.nvim_buf_get_name(event.buf)
+    if not file or file == "" then
+      return
+    end
+    local prefix = cfg .. "/"
+    if file:sub(1, #prefix) ~= prefix then
+      return
+    end
+
+    if file:match("/lua/plugins/.*%.lua$") then
+      pcall(function()
+        require("lazy").reload()
+      end)
+      return
+    end
+
+    if file:match("/init%.lua$") or file:match("/.*%.vim$") then
+      vim.cmd("silent! source " .. vim.fn.fnameescape(file))
+      pcall(function()
+        require("lazy").reload()
+      end)
+      return
+    end
+
+    if file:match("/lua/.*%.lua$") then
+      local rel = file:match(vim.pesc(cfg .. "/lua/(.*)%.lua$") or "")
+      if rel and rel ~= "" then
+        local mod = rel:gsub("/", ".")
+        package.loaded[mod] = nil
+        local ok = pcall(require, mod)
+        if not ok then
+          vim.cmd("silent! luafile " .. vim.fn.fnameescape(file))
+        end
+      else
+        vim.cmd("silent! luafile " .. vim.fn.fnameescape(file))
+      end
+      return
+    end
+  end,
+})
