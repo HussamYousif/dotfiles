@@ -30,3 +30,6 @@ vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action
 
 -- Load Clojure-specific keymaps
 require("config.keymaps-clojure").setup()
+
+-- Find all jumps in telescope
+vim.keymap.set("n", "<leader>fj", "<CMD>Telescope jumplist<CR>", { desc = "Find jumps" })
