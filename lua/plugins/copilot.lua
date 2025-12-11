@@ -4,7 +4,7 @@ return {
     "zbirenbaum/copilot.lua",
     opts = {
       suggestion = {
-        enabled = false, -- TODO: Annoyed me. Enable suggestions since cmp is disabled
+        enabled = true, -- TODO: Annoyed me. Enable suggestions since cmp is disabled
         auto_trigger = true, -- Auto-trigger suggestions as you type
         hide_during_completion = false, -- We're not using other completion sources
         debounce = 50, -- Lower debounce for faster suggestions
