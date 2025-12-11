@@ -24,6 +24,29 @@ return {
         ["*"] = true, -- Enable for all file types
       },
     },
+    config = function(_, opts)
+      require("copilot").setup(opts)
+      
+      vim.g.copilot_enabled = true
+      
+      local function toggle_copilot()
+        vim.g.copilot_enabled = not vim.g.copilot_enabled
+        
+        if vim.g.copilot_enabled then
+          vim.cmd("Copilot enable")
+          Snacks.notify("✓ Copilot enabled", { title = "Copilot" })
+        else
+          vim.cmd("Copilot disable")
+          Snacks.notify("✗ Copilot disabled", { title = "Copilot" })
+        end
+      end
+      
+      vim.keymap.set("n", "<leader>uB", toggle_copilot, { desc = "Toggle Copilot autocomplete" })
+      
+      _G.get_copilot_status = function()
+        return vim.g.copilot_enabled and "✓ Copilot" or "✗ Copilot"
+      end
+    end,
   },
 
   -- Copilot Chat for AI-powered conversations
