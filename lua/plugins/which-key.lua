@@ -44,6 +44,17 @@ return {
       { "<leader>aD", desc = "Debug Info" },
       { "<leader>as", desc = "Stop Chat" },
       { "<leader>aR", desc = "Reset Chat" },
+      -- Spelunk bookmarks
+      { "<leader>B", group = "Bookmarks" },
+      { "<leader>Bt", desc = "Toggle UI" },
+      { "<leader>Ba", desc = "Add bookmark" },
+      { "<leader>Bd", desc = "Delete bookmark" },
+      { "<leader>Bn", desc = "Next bookmark" },
+      { "<leader>Bp", desc = "Previous bookmark" },
+      { "<leader>Bf", desc = "Find bookmarks" },
+      { "<leader>Bc", desc = "Find stack bookmarks" },
+      { "<leader>Bs", desc = "Find stacks" },
+      { "<leader>Bl", desc = "Change line" },
     })
 
     -- Register comma prefix for Conjure commands (only in Clojure files)
