@@ -116,10 +116,10 @@ return {
           { "<leader>dd", desc = "Show documentation" },
           { "<leader>ds", desc = "Show source" },
           
-          -- Macroexpansion
-          { "<leader>m", group = "Macro" },
-          { "<leader>mm", desc = "Macroexpand-1" },
-          { "<leader>mM", desc = "Macroexpand-all" },
+          -- Macroexpansion (moved to ,x prefix to avoid conflict with Mole)
+          { "<leader>x", group = "Macroexpand" },
+          { "<leader>xx", desc = "Macroexpand-1" },
+          { "<leader>xX", desc = "Macroexpand-all" },
           
           -- Structural editing
           { "<leader>s", group = "Structure" },

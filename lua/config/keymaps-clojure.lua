@@ -52,9 +52,9 @@ M.setup = function()
         vim.cmd("ConjureEval (clojure.repl/source " .. word .. ")")
       end, { desc = "Show source" })
       
-      -- Macroexpansion shortcuts
-      vim.keymap.set("n", "<leader>mm", "<cmd>ConjureEvalCommentCurrentForm<CR>:s/;.*//<CR>:noh<CR>A(macroexpand '<Esc>A)<CR><cmd>ConjureEvalCurrentForm<CR>", { desc = "Macroexpand-1" })
-      vim.keymap.set("n", "<leader>mM", "<cmd>ConjureEvalCommentCurrentForm<CR>:s/;.*//<CR>:noh<CR>A(macroexpand-all '<Esc>A)<CR><cmd>ConjureEvalCurrentForm<CR>", { desc = "Macroexpand-all" })
+      -- Macroexpansion shortcuts (using <leader>x to avoid conflict with Mole)
+      vim.keymap.set("n", "<leader>xx", "<cmd>ConjureEvalCommentCurrentForm<CR>:s/;.*//<CR>:noh<CR>A(macroexpand '<Esc>A)<CR><cmd>ConjureEvalCurrentForm<CR>", { desc = "Macroexpand-1" })
+      vim.keymap.set("n", "<leader>xX", "<cmd>ConjureEvalCommentCurrentForm<CR>:s/;.*//<CR>:noh<CR>A(macroexpand-all '<Esc>A)<CR><cmd>ConjureEvalCurrentForm<CR>", { desc = "Macroexpand-all" })
       
       -- Quick REPL shortcuts
       vim.keymap.set("n", "<leader>rh", function()

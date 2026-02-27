@@ -4,8 +4,8 @@ return {
     "zbirenbaum/copilot.lua",
     opts = {
       suggestion = {
-        enabled = true, -- TODO: Annoyed me. Enable suggestions since cmp is disabled
-        auto_trigger = true, -- Auto-trigger suggestions as you type
+        enabled = false, -- Disabled autocomplete suggestions
+        auto_trigger = false, -- Disabled auto-trigger
         hide_during_completion = false, -- We're not using other completion sources
         debounce = 50, -- Lower debounce for faster suggestions
         keymap = {

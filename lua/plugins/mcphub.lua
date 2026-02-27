@@ -73,13 +73,13 @@ return {
     })
   end,
   keys = {
-    { "<leader>m", nil, desc = "🔌 MCP Hub" },
-    { "<leader>mm", "<cmd>MCPHub<cr>", desc = "Open MCP Hub" },
-    { "<leader>mr", "<cmd>MCPRestart<cr>", desc = "Restart MCP Hub" },
-    { "<leader>ms", "<cmd>MCPStop<cr>", desc = "Stop MCP Hub" },
-    { "<leader>ml", "<cmd>MCPLog<cr>", desc = "Show MCP Log" },
-    { "<leader>mc", "<cmd>MCPConfigEdit<cr>", desc = "Edit MCP Config" },
-    { "<leader>mh", "<cmd>MCPHubs<cr>", desc = "List Active Hubs" },
+    { "<leader>M", nil, desc = "🔌 MCP Hub" },
+    { "<leader>Mm", "<cmd>MCPHub<cr>", desc = "Open MCP Hub" },
+    { "<leader>Mr", "<cmd>MCPRestart<cr>", desc = "Restart MCP Hub" },
+    { "<leader>Ms", "<cmd>MCPStop<cr>", desc = "Stop MCP Hub" },
+    { "<leader>Ml", "<cmd>MCPLog<cr>", desc = "Show MCP Log" },
+    { "<leader>Mc", "<cmd>MCPConfigEdit<cr>", desc = "Edit MCP Config" },
+    { "<leader>Mh", "<cmd>MCPHubs<cr>", desc = "List Active Hubs" },
   },
   cmd = {
     "MCPHub",
