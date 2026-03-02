@@ -1,0 +1,112 @@
+{
+  "Namespace": {
+    "prefix": "ns",
+    "body": [
+      "(ns ${1:namespace-name}",
+      "  (:require [${2:library} :as ${3:alias}]))"
+    ],
+    "description": "Namespace definition"
+  },
+  "Function": {
+    "prefix": "defn",
+    "body": [
+      "(defn ${1:name}",
+      "  \"${2:doc-string}\"",
+      "  [${3:args}]",
+      "  ${0:body})"
+    ],
+    "description": "Function definition"
+  },
+  "Private Function": {
+    "prefix": "defn-",
+    "body": [
+      "(defn- ${1:name}",
+      "  \"${2:doc-string}\"",
+      "  [${3:args}]",
+      "  ${0:body})"
+    ],
+    "description": "Private Function definition"
+  },
+  "Let binding": {
+    "prefix": "let",
+    "body": [
+      "(let [${1:bindings}]",
+      "  ${0:body})"
+    ],
+    "description": "Let binding"
+  },
+  "If statement": {
+    "prefix": "if",
+    "body": [
+      "(if ${1:condition}",
+      "  ${2:then}",
+      "  ${3:else})"
+    ],
+    "description": "If statement"
+  },
+  "When statement": {
+    "prefix": "when",
+    "body": [
+      "(when ${1:condition}",
+      "  ${0:body})"
+    ],
+    "description": "When statement"
+  },
+  "Cond statement": {
+    "prefix": "cond",
+    "body": [
+      "(cond",
+      "  ${1:test} ${2:expression}",
+      "  :else ${3:default})"
+    ],
+    "description": "Cond statement"
+  },
+  "Threading macro ->": {
+    "prefix": "->",
+    "body": [
+      "(-> ${1:initial}",
+      "    ${0:steps})"
+    ],
+    "description": "Thread-first macro"
+  },
+  "Threading macro ->>": {
+    "prefix": "->>",
+    "body": [
+      "(->> ${1:initial}",
+      "     ${0:steps})"
+    ],
+    "description": "Thread-last macro"
+  },
+  "Comment block": {
+    "prefix": "comment",
+    "body": [
+      "(comment",
+      "  ${0:body})"
+    ],
+    "description": "Comment block for REPL experiments"
+  },
+  "Def": {
+    "prefix": "def",
+    "body": [
+      "(def ${1:name} ${2:value})"
+    ],
+    "description": "Define a var"
+  },
+  "Print line": {
+    "prefix": "println",
+    "body": [
+      "(println ${1:message})"
+    ],
+    "description": "Print line"
+  },
+  "Try Catch": {
+    "prefix": "try",
+    "body": [
+      "(try",
+      "  ${1:body}",
+      "  (catch ${2:Exception} ${3:e}",
+      "    ${0:handler}))"
+    ],
+    "description": "Try/Catch block"
+  }
+}
