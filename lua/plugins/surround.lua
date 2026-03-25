@@ -3,18 +3,17 @@ return {
   version = "*",
   event = "VeryLazy",
   config = function()
-    require("nvim-surround").setup({
-      keymaps = {
-        insert_line = "<C-s><C-s>", -- Surround entire line in insert
-        normal = "s", -- Add surround in normal mode (instead of ysiw)
-        normal_cur = "ss", -- Surround current line
-        normal_line = "S", -- Surround current line (linewise)
-        normal_cur_line = "SS", -- Surround entire line (linewise, current line)
-        visual = "s", -- Surround selection in visual mode
-        visual_line = "S", -- Surround visual line
-        delete = "sd", -- Delete surround
-        change = "sc", -- Change surround
-      },
-    })
+    require("nvim-surround").setup({})
+
+    -- v4 keymaps are now set via vim.keymap.set instead of setup()
+    vim.keymap.set("i", "<C-s><C-s>", "<Plug>(nvim-surround-insert-line)")
+    vim.keymap.set("n", "s", "<Plug>(nvim-surround-normal)")
+    vim.keymap.set("n", "ss", "<Plug>(nvim-surround-normal-cur)")
+    vim.keymap.set("n", "S", "<Plug>(nvim-surround-normal-line)")
+    vim.keymap.set("n", "SS", "<Plug>(nvim-surround-normal-cur-line)")
+    vim.keymap.set("x", "s", "<Plug>(nvim-surround-visual)")
+    vim.keymap.set("x", "S", "<Plug>(nvim-surround-visual-line)")
+    vim.keymap.set("n", "sd", "<Plug>(nvim-surround-delete)")
+    vim.keymap.set("n", "sc", "<Plug>(nvim-surround-change)")
   end,
 }
