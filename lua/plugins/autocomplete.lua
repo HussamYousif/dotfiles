@@ -21,11 +21,25 @@ return {
         ["<Tab>"] = { "select_and_accept", "snippet_forward", "fallback" },
         ["<S-Tab>"] = { "snippet_backward", "fallback" },
       }
+      opts.completion = {
+        menu = {
+          draw = {
+            components = {
+              label_detail = { text = function() return "" end },
+            },
+          },
+        },
+      }
       opts.sources = {
         default = { "lsp", "snippets" },
+        per_filetype = {
+          clojure = { "snippets" },
+          clojurescript = { "snippets" },
+        },
         providers = {
           snippets = {
             score_offset = 100,
+            min_keyword_length = 0,
           },
         },
       }
