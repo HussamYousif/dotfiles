@@ -1,8 +1,8 @@
 return {
-  -- Disable mini.pairs completely
+  -- mini.pairs enabled for auto-closing brackets
   {
     "nvim-mini/mini.pairs",
-    enabled = false,
+    enabled = true,
   },
 
   -- Disable nvim-ts-autotag for auto-closing HTML/XML tags

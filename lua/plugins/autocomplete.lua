@@ -5,6 +5,7 @@ return {
     enabled = true,
     dependencies = {
       "rafamadriz/friendly-snippets",
+      { "fang2hou/blink-copilot" },
       {
         "L3MON4D3/LuaSnip",
         version = "v2.*",
@@ -31,15 +32,21 @@ return {
         },
       }
       opts.sources = {
-        default = { "lsp", "snippets" },
+        default = { "lsp", "snippets", "copilot" },
         per_filetype = {
-          clojure = { "snippets" },
-          clojurescript = { "snippets" },
+          clojure = { "snippets", "copilot" },
+          clojurescript = { "snippets", "copilot" },
         },
         providers = {
           snippets = {
             score_offset = 100,
             min_keyword_length = 0,
+          },
+          copilot = {
+            name = "copilot",
+            module = "blink-copilot",
+            score_offset = 100,
+            async = true,
           },
         },
       }

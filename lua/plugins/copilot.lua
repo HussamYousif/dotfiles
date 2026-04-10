@@ -4,9 +4,9 @@ return {
     "zbirenbaum/copilot.lua",
     opts = {
       suggestion = {
-        enabled = false, -- Disabled autocomplete suggestions
-        auto_trigger = false, -- Disabled auto-trigger
-        hide_during_completion = false, -- We're not using other completion sources
+        enabled = true,
+        auto_trigger = true,
+        hide_during_completion = true,
         debounce = 50, -- Lower debounce for faster suggestions
         keymap = {
           accept = "<Tab>", -- Accept suggestion with Tab
