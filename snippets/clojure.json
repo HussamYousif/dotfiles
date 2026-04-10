@@ -108,5 +108,124 @@
       "    ${0:handler}))"
     ],
     "description": "Try/Catch block"
+  },
+  "Cond threading ->": {
+    "prefix": "cond->",
+    "body": [
+      "(cond-> ${1:expr}",
+      "  ${2:test} ${3:form}",
+      "  ${0})"
+    ],
+    "description": "Conditional thread-first macro"
+  },
+  "Cond threading ->>": {
+    "prefix": "cond->>",
+    "body": [
+      "(cond->> ${1:expr}",
+      "  ${2:test} ${3:form}",
+      "  ${0})"
+    ],
+    "description": "Conditional thread-last macro"
+  },
+  "Some threading ->": {
+    "prefix": "some->",
+    "body": [
+      "(some-> ${1:expr}",
+      "  ${0:forms})"
+    ],
+    "description": "Thread-first with nil short-circuit"
+  },
+  "Some threading ->>": {
+    "prefix": "some->>",
+    "body": [
+      "(some->> ${1:expr}",
+      "  ${0:forms})"
+    ],
+    "description": "Thread-last with nil short-circuit"
+  },
+  "As threading": {
+    "prefix": "as->",
+    "body": [
+      "(as-> ${1:expr} ${2:name}",
+      "  ${0:forms})"
+    ],
+    "description": "Thread with named binding"
+  },
+  "If-let": {
+    "prefix": "if-let",
+    "body": [
+      "(if-let [${1:binding} ${2:test}]",
+      "  ${3:then}",
+      "  ${0:else})"
+    ],
+    "description": "If with let binding"
+  },
+  "When-let": {
+    "prefix": "when-let",
+    "body": [
+      "(when-let [${1:binding} ${2:test}]",
+      "  ${0:body})"
+    ],
+    "description": "When with let binding"
+  },
+  "If-not": {
+    "prefix": "if-not",
+    "body": [
+      "(if-not ${1:condition}",
+      "  ${2:then}",
+      "  ${0:else})"
+    ],
+    "description": "If-not statement"
+  },
+  "When-not": {
+    "prefix": "when-not",
+    "body": [
+      "(when-not ${1:condition}",
+      "  ${0:body})"
+    ],
+    "description": "When-not statement"
+  },
+  "If-some": {
+    "prefix": "if-some",
+    "body": [
+      "(if-some [${1:binding} ${2:test}]",
+      "  ${3:then}",
+      "  ${0:else})"
+    ],
+    "description": "If with some binding (non-nil check)"
+  },
+  "When-some": {
+    "prefix": "when-some",
+    "body": [
+      "(when-some [${1:binding} ${2:test}]",
+      "  ${0:body})"
+    ],
+    "description": "When with some binding (non-nil check)"
+  },
+  "When-first": {
+    "prefix": "when-first",
+    "body": [
+      "(when-first [${1:binding} ${2:coll}]",
+      "  ${0:body})"
+    ],
+    "description": "When with first element binding"
+  },
+  "Case": {
+    "prefix": "case",
+    "body": [
+      "(case ${1:expr}",
+      "  ${2:value} ${3:result}",
+      "  ${0:default})"
+    ],
+    "description": "Case statement"
+  },
+  "Condp": {
+    "prefix": "condp",
+    "body": [
+      "(condp ${1:pred} ${2:expr}",
+      "  ${3:test} ${4:result}",
+      "  ${0:default})"
+    ],
+    "description": "Condp statement"
   }
 }
