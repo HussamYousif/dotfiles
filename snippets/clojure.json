@@ -227,5 +227,489 @@
       "  ${0:default})"
     ],
     "description": "Condp statement"
+  },
+
+  "fn": {
+    "prefix": "fn",
+    "body": ["(fn [${1:args}]", "  ${0:body})"],
+    "description": "Anonymous function"
+  },
+
+  "fn short": {
+    "prefix": "#(",
+    "body": ["#(${0:body})"],
+    "description": "Anonymous function shorthand"
+  },
+
+  "map": {
+    "prefix": "map",
+    "body": ["(map ${1:f} ${0:coll})"],
+    "description": "Map function over collection"
+  },
+
+  "mapv": {
+    "prefix": "mapv",
+    "body": ["(mapv ${1:f} ${0:coll})"],
+    "description": "Map function over collection, return vector"
+  },
+
+  "map-indexed": {
+    "prefix": "map-indexed",
+    "body": ["(map-indexed (fn [${1:i} ${2:x}]", "  ${0:body}) ${3:coll})"],
+    "description": "Map with index over collection"
+  },
+
+  "filter": {
+    "prefix": "filter",
+    "body": ["(filter ${1:pred} ${0:coll})"],
+    "description": "Filter collection by predicate"
+  },
+
+  "filterv": {
+    "prefix": "filterv",
+    "body": ["(filterv ${1:pred} ${0:coll})"],
+    "description": "Filter collection by predicate, return vector"
+  },
+
+  "remove": {
+    "prefix": "remove",
+    "body": ["(remove ${1:pred} ${0:coll})"],
+    "description": "Remove items matching predicate"
+  },
+
+  "reduce": {
+    "prefix": "reduce",
+    "body": ["(reduce (fn [${1:acc} ${2:x}]", "  ${0:body}) ${3:init} ${4:coll})"],
+    "description": "Reduce collection with function"
+  },
+
+  "keep": {
+    "prefix": "keep",
+    "body": ["(keep ${1:f} ${0:coll})"],
+    "description": "Keep non-nil results of f applied to coll"
+  },
+
+  "keep-indexed": {
+    "prefix": "keep-indexed",
+    "body": ["(keep-indexed (fn [${1:i} ${2:x}]", "  ${0:body}) ${3:coll})"],
+    "description": "Keep non-nil results with index"
+  },
+
+  "take-while": {
+    "prefix": "take-while",
+    "body": ["(take-while ${1:pred} ${0:coll})"],
+    "description": "Take items while predicate holds"
+  },
+
+  "drop-while": {
+    "prefix": "drop-while",
+    "body": ["(drop-while ${1:pred} ${0:coll})"],
+    "description": "Drop items while predicate holds"
+  },
+
+  "partition-by": {
+    "prefix": "partition-by",
+    "body": ["(partition-by ${1:f} ${0:coll})"],
+    "description": "Partition collection by function"
+  },
+
+  "group-by": {
+    "prefix": "group-by",
+    "body": ["(group-by ${1:f} ${0:coll})"],
+    "description": "Group collection by function"
+  },
+
+  "sort-by": {
+    "prefix": "sort-by",
+    "body": ["(sort-by ${1:keyfn} ${0:coll})"],
+    "description": "Sort collection by key function"
+  },
+
+  "every?": {
+    "prefix": "every?",
+    "body": ["(every? ${1:pred} ${0:coll})"],
+    "description": "True if pred holds for every item"
+  },
+
+  "some": {
+    "prefix": "some",
+    "body": ["(some ${1:pred} ${0:coll})"],
+    "description": "First truthy result of pred applied to coll"
+  },
+
+  "not-any?": {
+    "prefix": "not-any?",
+    "body": ["(not-any? ${1:pred} ${0:coll})"],
+    "description": "True if pred holds for no items"
+  },
+
+  "not-every?": {
+    "prefix": "not-every?",
+    "body": ["(not-every? ${1:pred} ${0:coll})"],
+    "description": "True if pred does not hold for every item"
+  },
+
+  "apply": {
+    "prefix": "apply",
+    "body": ["(apply ${1:f} ${0:args})"],
+    "description": "Apply function to argument list"
+  },
+
+  "partial": {
+    "prefix": "partial",
+    "body": ["(partial ${1:f} ${0:args})"],
+    "description": "Partial application of function"
+  },
+
+  "comp": {
+    "prefix": "comp",
+    "body": ["(comp ${0:fns})"],
+    "description": "Compose functions right to left"
+  },
+
+  "juxt": {
+    "prefix": "juxt",
+    "body": ["(juxt ${0:fns})"],
+    "description": "Apply multiple functions to same args"
+  },
+
+  "iterate": {
+    "prefix": "iterate",
+    "body": ["(iterate ${1:f} ${0:init})"],
+    "description": "Lazy sequence of repeated f application"
+  },
+
+  "repeatedly": {
+    "prefix": "repeatedly",
+    "body": ["(repeatedly ${1:n} ${0:f})"],
+    "description": "Lazy sequence of n calls to f"
+  },
+
+  "transduce": {
+    "prefix": "transduce",
+    "body": ["(transduce ${1:xform} ${2:f} ${3:init} ${0:coll})"],
+    "description": "Transduce collection with xform"
+  },
+
+  "into with xform": {
+    "prefix": "into-xf",
+    "body": ["(into ${1:[]} (${2:map} ${3:f}) ${0:coll})"],
+    "description": "Into with transducer"
+  },
+
+  "map->": {
+    "prefix": "mapt",
+    "body": [
+      "(map (fn [${1:x}]",
+      "  ${0:body}) ${2:coll})"
+    ],
+    "description": "Map with inline fn"
+  },
+
+  "filter->": {
+    "prefix": "filtert",
+    "body": [
+      "(filter (fn [${1:x}]",
+      "  ${0:body}) ${2:coll})"
+    ],
+    "description": "Filter with inline fn"
+  },
+
+  "defonce": {
+    "prefix": "defonce",
+    "body": ["(defonce ${1:name} ${0:value})"],
+    "description": "Define a var once (no redef on reload)"
+  },
+
+  "defmacro": {
+    "prefix": "defmacro",
+    "body": [
+      "(defmacro ${1:name}",
+      "  \"${2:doc-string}\"",
+      "  [${3:args}]",
+      "  ${0:body})"
+    ],
+    "description": "Macro definition"
+  },
+
+  "defmulti": {
+    "prefix": "defmulti",
+    "body": ["(defmulti ${1:name} ${0:dispatch-fn})"],
+    "description": "Define multimethod with dispatch function"
+  },
+
+  "defmethod": {
+    "prefix": "defmethod",
+    "body": [
+      "(defmethod ${1:name} ${2:dispatch-val}",
+      "  [${3:args}]",
+      "  ${0:body})"
+    ],
+    "description": "Define multimethod implementation"
+  },
+
+  "defprotocol": {
+    "prefix": "defprotocol",
+    "body": [
+      "(defprotocol ${1:Name}",
+      "  (${2:method} [this ${3:args}] \"${0:doc}\"))"
+    ],
+    "description": "Define protocol"
+  },
+
+  "defrecord": {
+    "prefix": "defrecord",
+    "body": [
+      "(defrecord ${1:Name} [${2:fields}]",
+      "  ${3:Protocol}",
+      "  (${4:method} [this ${5:args}]",
+      "    ${0:body}))"
+    ],
+    "description": "Define record implementing a protocol"
+  },
+
+  "atom": {
+    "prefix": "atom",
+    "body": ["(atom ${0:initial-value})"],
+    "description": "Create an atom"
+  },
+
+  "swap!": {
+    "prefix": "swap!",
+    "body": ["(swap! ${1:atom} ${2:f} ${0:args})"],
+    "description": "Update atom with function"
+  },
+
+  "reset!": {
+    "prefix": "reset!",
+    "body": ["(reset! ${1:atom} ${0:new-value})"],
+    "description": "Reset atom to new value"
+  },
+
+  "assoc": {
+    "prefix": "assoc",
+    "body": ["(assoc ${1:m} ${2:k} ${0:v})"],
+    "description": "Associate key with value in map"
+  },
+
+  "assoc-in": {
+    "prefix": "assoc-in",
+    "body": ["(assoc-in ${1:m} [${2:keys}] ${0:v})"],
+    "description": "Associate value at nested path"
+  },
+
+  "update": {
+    "prefix": "update",
+    "body": ["(update ${1:m} ${2:k} ${0:f})"],
+    "description": "Update value at key with function"
+  },
+
+  "update-in": {
+    "prefix": "update-in",
+    "body": ["(update-in ${1:m} [${2:keys}] ${0:f})"],
+    "description": "Update value at nested path with function"
+  },
+
+  "get-in": {
+    "prefix": "get-in",
+    "body": ["(get-in ${1:m} [${0:keys}])"],
+    "description": "Get value at nested path"
+  },
+
+  "dissoc": {
+    "prefix": "dissoc",
+    "body": ["(dissoc ${1:m} ${0:k})"],
+    "description": "Remove key from map"
+  },
+
+  "merge": {
+    "prefix": "merge",
+    "body": ["(merge ${1:m1} ${0:m2})"],
+    "description": "Merge maps"
+  },
+
+  "merge-with": {
+    "prefix": "merge-with",
+    "body": ["(merge-with ${1:f} ${2:m1} ${0:m2})"],
+    "description": "Merge maps with conflict function"
+  },
+
+  "select-keys": {
+    "prefix": "select-keys",
+    "body": ["(select-keys ${1:m} [${0:keys}])"],
+    "description": "Select subset of keys from map"
+  },
+
+  "zipmap": {
+    "prefix": "zipmap",
+    "body": ["(zipmap ${1:keys} ${0:vals})"],
+    "description": "Create map from keys and values"
+  },
+
+  "frequencies": {
+    "prefix": "frequencies",
+    "body": ["(frequencies ${0:coll})"],
+    "description": "Count occurrences of each item"
+  },
+
+  "loop": {
+    "prefix": "loop",
+    "body": [
+      "(loop [${1:acc} ${2:init}]",
+      "  (if ${3:condition}",
+      "    (recur ${0:next})",
+      "    ${1:acc}))"
+    ],
+    "description": "Loop with recur"
+  },
+
+  "for": {
+    "prefix": "for",
+    "body": [
+      "(for [${1:x} ${2:coll}",
+      "      :when ${3:pred}]",
+      "  ${0:body})"
+    ],
+    "description": "List comprehension"
+  },
+
+  "doseq": {
+    "prefix": "doseq",
+    "body": [
+      "(doseq [${1:x} ${2:coll}]",
+      "  ${0:body})"
+    ],
+    "description": "Iterate over collection for side effects"
+  },
+
+  "dotimes": {
+    "prefix": "dotimes",
+    "body": [
+      "(dotimes [${1:i} ${2:n}]",
+      "  ${0:body})"
+    ],
+    "description": "Execute body n times"
+  },
+
+  "doall": {
+    "prefix": "doall",
+    "body": ["(doall ${0:coll})"],
+    "description": "Force evaluation of lazy sequence"
+  },
+
+  "letk": {
+    "prefix": "letk",
+    "body": [
+      "(let [{:keys [${1:a} ${2:b}]} ${3:m}]",
+      "  ${0:body})"
+    ],
+    "description": "Let with map destructuring"
+  },
+
+  "fnk": {
+    "prefix": "fnk",
+    "body": [
+      "(fn [{:keys [${1:a} ${2:b}]}]",
+      "  ${0:body})"
+    ],
+    "description": "Anonymous fn with map destructuring"
+  },
+
+  "ex-info": {
+    "prefix": "ex-info",
+    "body": ["(ex-info \"${1:message}\" {${0:data}})"],
+    "description": "Create exception with data map"
+  },
+
+  "throw": {
+    "prefix": "throw",
+    "body": ["(throw (ex-info \"${1:message}\" {${0:data}}))"],
+    "description": "Throw exception with data map"
+  },
+
+  "try-finally": {
+    "prefix": "try-finally",
+    "body": [
+      "(try",
+      "  ${1:body}",
+      "  (catch ${2:Exception} ${3:e}",
+      "    ${4:handler})",
+      "  (finally",
+      "    ${0:cleanup}))"
+    ],
+    "description": "Try/catch/finally block"
+  },
+
+  "deftest": {
+    "prefix": "deftest",
+    "body": [
+      "(deftest ${1:test-name}",
+      "  (testing \"${2:description}\"",
+      "    (is (= ${3:expected} ${0:actual}))))"
+    ],
+    "description": "Define a test"
+  },
+
+  "testing": {
+    "prefix": "testing",
+    "body": [
+      "(testing \"${1:description}\"",
+      "  ${0:body})"
+    ],
+    "description": "Testing block"
+  },
+
+  "is": {
+    "prefix": "is",
+    "body": ["(is (= ${1:expected} ${0:actual}))"],
+    "description": "Test assertion"
+  },
+
+  "are": {
+    "prefix": "are",
+    "body": [
+      "(are [${1:x} ${2:y}] (= ${1:x} ${2:y})",
+      "  ${0:cases})"
+    ],
+    "description": "Table-driven test assertions"
+  },
+
+  "future": {
+    "prefix": "future",
+    "body": ["(future ${0:body})"],
+    "description": "Run body in a future thread"
+  },
+
+  "pmap": {
+    "prefix": "pmap",
+    "body": ["(pmap ${1:f} ${0:coll})"],
+    "description": "Parallel map"
+  },
+
+  "promise": {
+    "prefix": "promise",
+    "body": [
+      "(let [${1:p} (promise)]",
+      "  (deliver ${1:p} ${2:value})",
+      "  @${1:p})"
+    ],
+    "description": "Create, deliver and deref a promise"
+  },
+
+  "ns-full": {
+    "prefix": "ns-full",
+    "body": [
+      "(ns ${1:namespace}",
+      "  (:require [${2:library} :as ${3:alias}]",
+      "            [${4:library2} :as ${5:alias2}])",
+      "  (:import [${0:java.class}]))"
+    ],
+    "description": "Full namespace with require and import"
+  },
+
+  "require": {
+    "prefix": "req",
+    "body": ["[${1:library} :as ${0:alias}]"],
+    "description": "Require vector for ns form"
   }
 }
