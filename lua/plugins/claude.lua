@@ -1,6 +1,6 @@
 return {
   "coder/claudecode.nvim",
-  enabled = false, -- Disabled in favor of Copilot Chat
+  enabled = true,
   dependencies = { "folke/snacks.nvim" },
   config = true,
   keys = {
