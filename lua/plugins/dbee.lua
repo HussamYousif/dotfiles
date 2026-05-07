@@ -24,9 +24,27 @@ return {
       })
     end,
     keys = {
-      { "<leader>do", function() require("dbee").open() end, desc = "Open Dbee" },
-      { "<leader>dc", function() require("dbee").close() end, desc = "Close Dbee" },
-      { "<leader>dt", function() require("dbee").toggle() end, desc = "Toggle Dbee" },
+      {
+        "<leader>do",
+        function()
+          require("dbee").open()
+        end,
+        desc = "Open Dbee",
+      },
+      {
+        "<leader>dc",
+        function()
+          require("dbee").close()
+        end,
+        desc = "Close Dbee",
+      },
+      {
+        "<leader>dt",
+        function()
+          require("dbee").toggle()
+        end,
+        desc = "Toggle Dbee",
+      },
     },
   },
   -- Register <leader>d as "database" in which-key

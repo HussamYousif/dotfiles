@@ -17,7 +17,7 @@ return {
   config = function(_, opts)
     local wk = require("which-key")
     wk.setup(opts)
-    
+
     -- Global keybinding groups (not Clojure-specific)
     wk.add({
       { "<leader>c", group = "Code" },
@@ -29,21 +29,20 @@ return {
       { "<leader>hs", desc = "Add cursor down" },
       { "<leader>ht", desc = "Toggle VM mappings" },
       { "<leader>hq", desc = "Quit multi-cursor" },
-      -- Copilot AI keybindings
-      { "<leader>a", group = "AI (Copilot)" },
-      { "<leader>aa", desc = "Toggle Copilot Chat" },
-      { "<leader>aq", desc = "Quick Chat" },
-      { "<leader>ap", desc = "Prompt with Selection" },
-      { "<leader>ae", desc = "Explain Code" },
-      { "<leader>ar", desc = "Review Code" },
-      { "<leader>af", desc = "Fix Code" },
-      { "<leader>ao", desc = "Optimize Code" },
-      { "<leader>ad", desc = "Generate Docs" },
-      { "<leader>at", desc = "Generate Tests" },
-      { "<leader>ac", desc = "Generate Commit" },
-      { "<leader>aD", desc = "Debug Info" },
-      { "<leader>as", desc = "Stop Chat" },
-      { "<leader>aR", desc = "Reset Chat" },
+      -- CodeCompanion AI keybindings
+      { "<leader>a", group = "AI (CodeCompanion)", mode = { "n", "v" } },
+      { "<leader>aa", desc = "Toggle Chat", mode = { "n", "v" } },
+      { "<leader>an", desc = "New Chat" },
+      { "<leader>ap", desc = "Actions / Prompts", mode = { "n", "v" } },
+      { "<leader>ai", desc = "Inline Assistant", mode = { "n", "v" } },
+      { "<leader>ax", desc = "Cmd Prompt" },
+      { "<leader>aA", desc = "Add Selection to Chat", mode = "v" },
+      { "<leader>ab", desc = "Buffer Context", mode = { "n", "v" } },
+      { "<leader>ae", desc = "Explain Code", mode = "v" },
+      { "<leader>af", desc = "Fix Code", mode = "v" },
+      { "<leader>al", desc = "Explain LSP Diagnostics", mode = { "n", "v" } },
+      { "<leader>at", desc = "Generate Tests", mode = "v" },
+      { "<leader>ag", desc = "Generate Commit Message" },
       -- Spelunk bookmarks
       { "<leader>B", group = "Bookmarks" },
       { "<leader>Bt", desc = "Toggle UI" },
@@ -80,7 +79,7 @@ return {
           { ",t", group = "Tests" },
           { ",s", group = "Repl Session" },
         })
-        
+
         -- Add Clojure keybinding groups
         wk.add({
           -- REPL operations
@@ -94,66 +93,41 @@ return {
           { "<leader>rn", desc = "Rename symbol" },
           { "<leader>rf", desc = "Format code" },
           { "<leader>ra", desc = "Code actions" },
-          
+
           -- Namespace operations
           { "<leader>n", group = "Namespace" },
           { "<leader>nn", desc = "Evaluate namespace" },
           { "<leader>nr", desc = "Refresh namespace" },
-          
+
           -- Evaluation
           { "<leader>e", group = "Eval" },
           { "<leader>ee", desc = "Evaluate current form" },
           { "<leader>eE", desc = "Eval with comment" },
-          
+
           -- Portal data viewer
           { "<leader>p", group = "Portal" },
           { "<leader>pv", desc = "Start Portal viewer" },
           { "<leader>pc", desc = "Clear Portal viewer" },
           { "<leader>pt", desc = "Tap> to Portal" },
-          
-          -- Documentation
-          { "<leader>d", group = "Docs" },
-          { "<leader>dd", desc = "Show documentation" },
-          { "<leader>ds", desc = "Show source" },
-          
-          -- Macroexpansion (moved to ,x prefix to avoid conflict with Mole)
-          { "<leader>x", group = "Macroexpand" },
-          { "<leader>xx", desc = "Macroexpand-1" },
-          { "<leader>xX", desc = "Macroexpand-all" },
-          
+
           -- Structural editing
-          { "<leader>s", group = "Structure" },
-          { "<leader>ss", desc = "Slurp right" },
-          { "<leader>sb", desc = "Barf right" },
-          { "<leader>sS", desc = "Slurp left" },
-          { "<leader>sB", desc = "Barf left" },
-          { "<leader>sj", desc = "Splice" },
-          { "<leader>sk", desc = "Kill & splice" },
-          { "<leader>su", desc = "Raise form" },
-          { "<leader>st", desc = "Transpose forms" },
-          
+          { "<leader>S", group = "Structure" },
+          { "<leader>Ss", desc = "Slurp right" },
+          { "<leader>Sb", desc = "Barf right" },
+          { "<leader>SS", desc = "Slurp left" },
+          { "<leader>SB", desc = "Barf left" },
+          { "<leader>Sj", desc = "Splice" },
+          { "<leader>Sk", desc = "Kill & splice" },
+          { "<leader>Su", desc = "Raise form" },
+          { "<leader>St", desc = "Transpose forms" },
+
           -- Go to
           { "<leader>g", group = "Go to" },
           { "<leader>gd", desc = "Go to definition" },
           { "<leader>gr", desc = "Find references" },
           { "<leader>gi", desc = "Go to implementation" },
-          
-          -- Tests (using capital T to avoid conflict with Telekasten)
-          { "<leader>T", group = "Tests" },
-          { "<leader>Tt", desc = "Test nearest" },
-          { "<leader>Tf", desc = "Test file" },
-          { "<leader>Ts", desc = "Test suite" },
-          { "<leader>Tl", desc = "Test last" },
-          { "<leader>Tv", desc = "Visit test file" },
-          { "<leader>Tn", desc = "Run namespace tests" },
-          
-          -- Workspace
-          { "<leader>w", group = "Workspace" },
-          { "<leader>wa", desc = "Add workspace folder" },
-          { "<leader>wr", desc = "Remove workspace folder" },
         })
       end,
     })
   end,
 }
-

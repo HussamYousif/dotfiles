@@ -8,6 +8,7 @@ M.setup = function()
       -- Project/REPL management
       vim.keymap.set("n", "<leader>rp", "<cmd>ConjureConnect<CR>", { desc = "Connect to REPL" })
       vim.keymap.set("n", "<leader>rr", "<cmd>ConjureLogResetSoft<CR>", { desc = "Reset REPL log" })
+      vim.keymap.set("n", "<leader>rR", "<cmd>ConjureEval (user/reset)<CR>", { desc = "Send (user/reset) to REPL" })
       vim.keymap.set("n", "<leader>rl", "<cmd>ConjureLogToggle<CR>", { desc = "Toggle REPL log" })
       vim.keymap.set("n", "<leader>ri", "<cmd>ConjureLogVSplit<CR>", { desc = "Open REPL log in vsplit" })
 

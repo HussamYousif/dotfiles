@@ -18,8 +18,8 @@ return {
       opts.snippets = { preset = "luasnip" }
       opts.keymap = {
         preset = "default",
-        ["<Tab>"] = { "select_and_accept", "snippet_forward", "fallback" },
-        ["<S-Tab>"] = { "snippet_backward", "fallback" },
+        ["<Tab>"] = { "select_and_accept", "fallback" },
+        ["<S-Tab>"] = { "fallback" },
       }
       opts.completion = {
         menu = {
@@ -31,17 +31,7 @@ return {
         },
       }
       opts.sources = {
-        default = { "lsp", "snippets" },
-        per_filetype = {
-          clojure = { "snippets" },
-          clojurescript = { "snippets" },
-        },
-        providers = {
-          snippets = {
-            score_offset = 100,
-            min_keyword_length = 0,
-          },
-        },
+        default = { "lsp" },
       }
       return opts
     end,

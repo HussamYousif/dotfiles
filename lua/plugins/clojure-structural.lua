@@ -23,21 +23,39 @@ return {
           local opts = { buffer = true, silent = true }
 
           -- Slurp/barf operations
-          map("n", "<leader>ss", function() api.slurp_forwards() end, vim.tbl_extend("force", opts, { desc = "Slurp forwards" }))
-          map("n", "<leader>sb", function() api.barf_forwards() end, vim.tbl_extend("force", opts, { desc = "Barf forwards" }))
-          map("n", "<leader>sS", function() api.slurp_backwards() end, vim.tbl_extend("force", opts, { desc = "Slurp backwards" }))
-          map("n", "<leader>sB", function() api.barf_backwards() end, vim.tbl_extend("force", opts, { desc = "Barf backwards" }))
+          map("n", "<leader>Ss", function()
+            api.slurp_forwards()
+          end, vim.tbl_extend("force", opts, { desc = "Slurp forwards" }))
+          map("n", "<leader>Sb", function()
+            api.barf_forwards()
+          end, vim.tbl_extend("force", opts, { desc = "Barf forwards" }))
+          map("n", "<leader>SS", function()
+            api.slurp_backwards()
+          end, vim.tbl_extend("force", opts, { desc = "Slurp backwards" }))
+          map("n", "<leader>SB", function()
+            api.barf_backwards()
+          end, vim.tbl_extend("force", opts, { desc = "Barf backwards" }))
 
           -- Splice operations (unwrap)
-          map("n", "<leader>sj", function() api.splice() end, vim.tbl_extend("force", opts, { desc = "Splice (unwrap)" }))
-          map("n", "<leader>sk", function() api.splice_killing_backwards() end, vim.tbl_extend("force", opts, { desc = "Splice killing backwards" }))
+          map("n", "<leader>Sj", function()
+            api.splice()
+          end, vim.tbl_extend("force", opts, { desc = "Splice (unwrap)" }))
+          map("n", "<leader>Sk", function()
+            api.splice_killing_backwards()
+          end, vim.tbl_extend("force", opts, { desc = "Splice killing backwards" }))
 
           -- Raise operations
-          map("n", "<leader>su", function() api.raise_form() end, vim.tbl_extend("force", opts, { desc = "Raise form" }))
-          map("n", "<leader>sr", function() api.raise_element() end, vim.tbl_extend("force", opts, { desc = "Raise element" }))
+          map("n", "<leader>Su", function()
+            api.raise_form()
+          end, vim.tbl_extend("force", opts, { desc = "Raise form" }))
+          map("n", "<leader>Sr", function()
+            api.raise_element()
+          end, vim.tbl_extend("force", opts, { desc = "Raise element" }))
 
           -- Movement and transposing
-          map("n", "<leader>st", function() api.transpose() end, vim.tbl_extend("force", opts, { desc = "Transpose forms" }))
+          map("n", "<leader>St", function()
+            api.transpose()
+          end, vim.tbl_extend("force", opts, { desc = "Transpose forms" }))
         end,
       })
     end,
